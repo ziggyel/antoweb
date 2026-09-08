@@ -268,130 +268,196 @@ function createAmbientAudio() {
   if (!AudioCtx) return null;
 
   const ctx = new AudioCtx();
+
+  // Cadena principal: cálida, oscura y sin ninguna fuente de ruido blanco.
   const master = ctx.createGain();
   master.gain.value = 0.0001;
 
-  const warmth = ctx.createBiquadFilter();
-  warmth.type = "lowpass";
-  warmth.frequency.value = 1850;
-  warmth.Q.value = 0.55;
+  const masterFilter = ctx.createBiquadFilter();
+  masterFilter.type = "lowpass";
+  masterFilter.frequency.value = 2300;
+  masterFilter.Q.value = 0.45;
 
   const compressor = ctx.createDynamicsCompressor();
-  compressor.threshold.value = -24;
-  compressor.knee.value = 18;
-  compressor.ratio.value = 3;
+  compressor.threshold.value = -26;
+  compressor.knee.value = 24;
+  compressor.ratio.value = 2.2;
   compressor.attack.value = 0.08;
-  compressor.release.value = 0.7;
+  compressor.release.value = 0.9;
 
-  warmth.connect(compressor).connect(master).connect(ctx.destination);
+  masterFilter.connect(compressor);
+  compressor.connect(master);
+  master.connect(ctx.destination);
 
   const dry = ctx.createGain();
-  dry.gain.value = 0.68;
-  dry.connect(warmth);
+  dry.gain.value = 0.82;
+  dry.connect(masterFilter);
 
-  const delay = ctx.createDelay(2.0);
-  delay.delayTime.value = 0.48;
+  // Eco corto para dar profundidad sin tapar las notas.
+  const delay = ctx.createDelay(2.5);
+  delay.delayTime.value = 0.46;
   const feedback = ctx.createGain();
-  feedback.gain.value = 0.24;
+  feedback.gain.value = 0.29;
   const wet = ctx.createGain();
-  wet.gain.value = 0.18;
-  dry.connect(delay);
-  delay.connect(feedback).connect(delay);
-  delay.connect(wet).connect(warmth);
+  wet.gain.value = 0.26;
 
+  delay.connect(feedback);
+  feedback.connect(delay);
+  delay.connect(wet);
+  wet.connect(masterFilter);
+
+  // Pad armónico sostenido.
   const padBus = ctx.createGain();
-  padBus.gain.value = 0.13;
+  padBus.gain.value = 0.26;
   padBus.connect(dry);
+  padBus.connect(delay);
 
-  const voices = [0, 1, 2, 3].map((_, index) => {
+  const padFilter = ctx.createBiquadFilter();
+  padFilter.type = "lowpass";
+  padFilter.frequency.value = 1050;
+  padFilter.Q.value = 0.7;
+
+  const padOut = ctx.createGain();
+  padOut.gain.value = 0.6;
+  padFilter.connect(padOut);
+  padOut.connect(padBus);
+
+  const padVoices = [0, 1, 2, 3].map((_, index) => {
     const osc = ctx.createOscillator();
-    const voiceGain = ctx.createGain();
+    const gain = ctx.createGain();
+
     osc.type = index % 2 === 0 ? "triangle" : "sine";
     osc.frequency.value = 110;
-    osc.detune.value = index % 2 === 0 ? -5 : 5;
-    voiceGain.gain.value = index === 0 ? 0.34 : 0.23;
-    osc.connect(voiceGain).connect(padBus);
+    osc.detune.value = [-7, 5, -3, 8][index];
+    gain.gain.value = [0.22, 0.18, 0.16, 0.13][index];
+
+    osc.connect(gain);
+    gain.connect(padFilter);
     osc.start();
-    return { osc, gain: voiceGain };
+    return { osc, gain };
   });
 
-  const sub = ctx.createOscillator();
-  const subGain = ctx.createGain();
-  sub.type = "sine";
-  sub.frequency.value = midiToHz(45);
-  subGain.gain.value = 0.04;
-  sub.connect(subGain).connect(dry);
-  sub.start();
+  // Bajo muy suave para que se sienta como una pieza musical.
+  const bass = ctx.createOscillator();
+  const bassGain = ctx.createGain();
+  bass.type = "sine";
+  bass.frequency.value = midiToHz(38);
+  bassGain.gain.value = 0.075;
+  bass.connect(bassGain);
+  bassGain.connect(dry);
+  bass.start();
 
-  // Leve textura de cinta, filtrada: no imita tráfico ni contiene samples externos.
-  const bufferSize = ctx.sampleRate * 2;
-  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-  const data = buffer.getChannelData(0);
-  for (let i = 0; i < bufferSize; i += 1) data[i] = Math.random() * 2 - 1;
-  const tape = ctx.createBufferSource();
-  tape.buffer = buffer;
-  tape.loop = true;
-  const tapeFilter = ctx.createBiquadFilter();
-  tapeFilter.type = "bandpass";
-  tapeFilter.frequency.value = 2300;
-  tapeFilter.Q.value = 0.8;
-  const tapeGain = ctx.createGain();
-  tapeGain.gain.value = 0.006;
-  tape.connect(tapeFilter).connect(tapeGain).connect(dry);
-  tape.start();
+  // Movimiento mínimo en la afinación. No genera ruido: sólo hace respirar el pad.
+  const lfo = ctx.createOscillator();
+  const lfoGain = ctx.createGain();
+  lfo.type = "sine";
+  lfo.frequency.value = 0.11;
+  lfoGain.gain.value = 1.7;
+  lfo.connect(lfoGain);
+  padVoices.forEach(({ osc }) => lfoGain.connect(osc.detune));
+  lfo.start();
 
-  // Wobble muy lento para que el pad tenga una sensación de cinta vieja.
-  const wobble = ctx.createOscillator();
-  const wobbleDepth = ctx.createGain();
-  wobble.type = "sine";
-  wobble.frequency.value = 0.16;
-  wobbleDepth.gain.value = 3.5;
-  wobble.connect(wobbleDepth);
-  voices.forEach(({ osc }) => wobbleDepth.connect(osc.detune));
-  wobble.start();
-
+  // Progresión original: Dm9 -> Bbmaj7 -> Fmaj7 -> Cadd9.
   const chords = [
-    [57, 60, 64, 67], // Am7
-    [53, 57, 60, 64], // Fmaj7
-    [48, 52, 55, 59], // Cmaj7
-    [55, 59, 62, 64], // G6
+    [50, 53, 57, 64],
+    [46, 50, 53, 57],
+    [53, 57, 60, 64],
+    [48, 52, 55, 62],
   ];
-  let chordIndex = 0;
 
-  const setChord = (notes, glide = 2.8) => {
+  // Arpegio original para que la cinta se reconozca claramente como música.
+  const patterns = [
+    [62, 65, 69, 72, 69, 65],
+    [58, 62, 65, 69, 65, 62],
+    [65, 69, 72, 76, 72, 69],
+    [60, 64, 67, 74, 67, 64],
+  ];
+
+  let chordIndex = 0;
+  let step = 0;
+
+  function setChord(notes, glide = 1.8) {
     const now = ctx.currentTime;
     notes.forEach((note, index) => {
-      voices[index].osc.frequency.cancelScheduledValues(now);
-      voices[index].osc.frequency.setTargetAtTime(midiToHz(note), now, glide);
+      padVoices[index].osc.frequency.cancelScheduledValues(now);
+      padVoices[index].osc.frequency.setTargetAtTime(midiToHz(note), now, glide);
     });
-    sub.frequency.cancelScheduledValues(now);
-    sub.frequency.setTargetAtTime(midiToHz(notes[0] - 12), now, glide + 0.8);
-  };
+    bass.frequency.cancelScheduledValues(now);
+    bass.frequency.setTargetAtTime(midiToHz(notes[0] - 12), now, glide + 0.25);
+  }
 
-  setChord(chords[0], 0.2);
+  function playNote(note) {
+    if (!state.audioOn) return;
+
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const filter = ctx.createBiquadFilter();
+    const gain = ctx.createGain();
+
+    osc.type = "sine";
+    osc.frequency.value = midiToHz(note);
+
+    filter.type = "lowpass";
+    filter.frequency.value = 1750;
+    filter.Q.value = 0.6;
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.075, now + 0.045);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 1.9);
+
+    osc.connect(filter);
+    filter.connect(gain);
+    gain.connect(dry);
+    gain.connect(delay);
+
+    osc.start(now);
+    osc.stop(now + 2.05);
+  }
+
+  setChord(chords[0], 0.15);
+
+  const arpTimer = window.setInterval(() => {
+    const pattern = patterns[chordIndex];
+    playNote(pattern[step % pattern.length]);
+    step += 1;
+  }, 1180);
+
   const chordTimer = window.setInterval(() => {
     chordIndex = (chordIndex + 1) % chords.length;
-    setChord(chords[chordIndex]);
-  }, 7600);
+    step = 0;
+    setChord(chords[chordIndex], 2.2);
+  }, 7080);
 
-  return { ctx, master, chordTimer };
+  return { ctx, master, chordTimer, arpTimer };
 }
 
 async function toggleAudio() {
   if (!state.audio) state.audio = createAmbientAudio();
   if (!state.audio) return;
 
-  if (state.audio.ctx.state === "suspended") await state.audio.ctx.resume();
+  if (state.audio.ctx.state === "suspended") {
+    await state.audio.ctx.resume();
+  }
 
   state.audioOn = !state.audioOn;
+
   const now = state.audio.ctx.currentTime;
-  state.audio.master.gain.cancelScheduledValues(now);
-  state.audio.master.gain.setValueAtTime(Math.max(state.audio.master.gain.value, 0.0001), now);
-  state.audio.master.gain.exponentialRampToValueAtTime(state.audioOn ? 0.34 : 0.0001, now + 1.15);
+  const masterGain = state.audio.master.gain;
+  masterGain.cancelScheduledValues(now);
+  masterGain.setValueAtTime(Math.max(masterGain.value, 0.0001), now);
+  masterGain.exponentialRampToValueAtTime(
+    state.audioOn ? 0.46 : 0.0001,
+    now + (state.audioOn ? 1.4 : 0.7)
+  );
 
   $("#audio-toggle").setAttribute("aria-pressed", String(state.audioOn));
-  $("#audio-toggle").setAttribute("aria-label", state.audioOn ? "Pausar ambiente musical" : "Reproducir ambiente musical");
-  $("#audio-label").textContent = state.audioOn ? "Cinta 01 — señal cálida / nocturna" : "Cinta 01 — silencio";
+  $("#audio-toggle").setAttribute(
+    "aria-label",
+    state.audioOn ? "Pausar música ambiental" : "Reproducir música ambiental"
+  );
+  $("#audio-label").textContent = state.audioOn
+    ? "Cinta 01 — nocturno en re menor"
+    : "Cinta 01 — silencio";
 }
 
 function resetExperience() {
