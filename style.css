@@ -4,11 +4,11 @@
   --void: #091013;
   --panel: rgba(14, 22, 25, 0.94);
   --panel-soft: rgba(18, 28, 31, 0.83);
-  --petrol: #1d4a52;
+  --petrol: #1b2a32;
   --petrol-deep: #12353d;
   --rust: #9d4a2e;
   --rust-bright: #c5673f;
-  --yellow: #c7a459;
+  --yellow: #d3a042;
   --green: #65745e;
   --red: #b83e35;
   --line: rgba(224, 217, 195, 0.24);
@@ -856,4 +856,471 @@ button:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+
+/* ========================================================================== 
+   UI texture pass — petróleo, óxido y papel viejo
+   ========================================================================== */
+:root {
+  --yellow: #d3a042;
+  --petrol: #1b2a32;
+  --petrol-accent: #315761;
+  --rust-dark: #6d3225;
+  --frame-light: rgba(211, 160, 66, .34);
+  --frame-cold: rgba(74, 111, 121, .32);
+}
+
+body {
+  background:
+    radial-gradient(circle at 71% 18%, rgba(114, 57, 33, .20), transparent 26%),
+    radial-gradient(circle at 13% 78%, rgba(31, 70, 79, .24), transparent 31%),
+    linear-gradient(145deg, #091013 0%, #101617 49%, #080d0f 100%);
+}
+
+.world-bg {
+  background:
+    radial-gradient(ellipse at 76% 16%, rgba(166, 83, 43, .18) 0 10%, transparent 34%),
+    radial-gradient(ellipse at 18% 84%, rgba(30, 75, 87, .30) 0 12%, transparent 40%),
+    linear-gradient(174deg, rgba(255,255,255,.016) 0 18%, transparent 18% 21%, rgba(255,255,255,.009) 21% 39%, transparent 39%),
+    linear-gradient(180deg, #0a1215 0%, #111717 51%, #080e10 100%);
+}
+
+.world-bg__city {
+  opacity: .84;
+  background:
+    linear-gradient(90deg, transparent 0 8%, rgba(133,64,39,.20) 8% 12%, transparent 12% 25%, rgba(21,59,67,.35) 25% 39%, transparent 39% 61%, rgba(121,62,39,.13) 61% 67%, transparent 67%),
+    linear-gradient(162deg, transparent 0 45%, rgba(145,65,36,.20) 45% 50%, transparent 50% 57%, rgba(29,72,80,.18) 57% 61%, transparent 61%),
+    repeating-linear-gradient(92deg, transparent 0 58px, rgba(225,211,177,.022) 59px 60px),
+    radial-gradient(circle at 66% 23%, rgba(211,160,66,.12), transparent 19%),
+    radial-gradient(circle at 23% 77%, rgba(29,91,100,.28), transparent 29%);
+  filter: blur(9px) contrast(1.28) saturate(.82);
+}
+
+.world-bg__grain {
+  opacity: .24;
+  background-image:
+    url("assets/noise.svg"),
+    repeating-linear-gradient(112deg, transparent 0 17px, rgba(211,160,66,.018) 18px 19px, transparent 20px 33px);
+  background-size: 220px 220px, auto;
+  mix-blend-mode: soft-light;
+}
+
+/* Marcos con una capa de pintura irregular y profundidad interior. */
+.character-card,
+.cabinet-shell,
+.scene-card,
+.dialogue-panel,
+.final-card,
+.record-panel,
+.evidence-card,
+.skill-check {
+  border-color: rgba(211, 160, 66, .22);
+  box-shadow:
+    0 26px 80px rgba(0,0,0,.48),
+    inset 0 0 0 1px rgba(58,89,97,.18),
+    inset 18px 0 42px rgba(8,13,15,.38),
+    inset -18px 0 50px rgba(93,42,27,.10);
+}
+
+.character-card,
+.cabinet-shell,
+.scene-card,
+.dialogue-panel,
+.final-card,
+.evidence-card {
+  background-image:
+    radial-gradient(circle at 17% 8%, rgba(211,160,66,.055), transparent 28%),
+    radial-gradient(circle at 89% 72%, rgba(127,57,34,.12), transparent 31%),
+    repeating-linear-gradient(117deg, transparent 0 23px, rgba(255,255,255,.012) 24px, transparent 25px 41px),
+    linear-gradient(180deg, rgba(18,29,33,.96), rgba(7,12,14,.98));
+}
+
+.character-card::after,
+.evidence-card::after,
+.final-card::after,
+.scene-card::after {
+  opacity: .9;
+  background:
+    linear-gradient(111deg, transparent 0 42%, rgba(223,203,155,.045) 42.4% 43%, transparent 43.5% 100%),
+    repeating-linear-gradient(0deg, transparent 0 5px, rgba(255,255,255,.017) 6px 7px),
+    repeating-linear-gradient(93deg, transparent 0 37px, rgba(117,56,35,.03) 38px 40px);
+}
+
+.character-card:hover {
+  border-color: rgba(211,160,66,.72);
+  box-shadow:
+    0 32px 90px rgba(0,0,0,.56),
+    inset 0 0 0 1px rgba(211,160,66,.18),
+    inset 0 -100px 120px rgba(7,13,15,.33);
+}
+
+.character-card--anto {
+  border-color: rgba(211,160,66,.52);
+}
+
+.character-card--anto .select-mark {
+  background: linear-gradient(90deg, #713825, #9a4c2d 62%, #7e3928);
+  color: #f1e7c9;
+  border-left: 1px solid rgba(211,160,66,.35);
+  border-top: 1px solid rgba(211,160,66,.22);
+  box-shadow: inset 0 0 16px rgba(0,0,0,.25);
+}
+
+.character-card__body {
+  border-top: 1px solid rgba(211,160,66,.13);
+  background:
+    linear-gradient(90deg, rgba(27,42,50,.28), transparent 38%),
+    linear-gradient(180deg, rgba(5,9,11,.04), rgba(0,0,0,.18));
+}
+
+.character-card__role,
+.stat-stack b,
+.eyebrow {
+  color: var(--yellow);
+}
+
+/* Thought Cabinet: problema primero, solución sólo tras internalizar. */
+.cabinet-shell {
+  position: relative;
+  border: 1px solid rgba(211,160,66,.22);
+  border-left: 7px solid #1b2a32;
+  background:
+    linear-gradient(90deg, rgba(27,42,50,.42), transparent 25%),
+    radial-gradient(circle at 83% 17%, rgba(139,64,36,.16), transparent 24%),
+    repeating-linear-gradient(118deg, transparent 0 25px, rgba(211,160,66,.018) 26px 27px, transparent 28px 49px),
+    rgba(8,14,16,.96);
+}
+
+.cabinet-shell::before,
+.dialogue-panel::before,
+.record-panel::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  pointer-events: none;
+  border: 1px solid rgba(74,111,121,.12);
+  box-shadow: inset 0 0 45px rgba(0,0,0,.30);
+}
+
+.cabinet-title {
+  position: relative;
+  padding: 0 0 22px 18px;
+  border-bottom: 1px solid rgba(211,160,66,.18);
+}
+
+.cabinet-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 3px;
+  bottom: 24px;
+  width: 4px;
+  background: linear-gradient(#d3a042, #73402d 74%, transparent);
+  box-shadow: 0 0 18px rgba(211,160,66,.12);
+}
+
+.thought-copy {
+  position: relative;
+  padding: 6px 0 0;
+}
+
+.thought-block {
+  position: relative;
+  padding: 18px 20px 20px 23px;
+  background:
+    linear-gradient(90deg, rgba(27,42,50,.43), rgba(10,17,19,.2) 42%, transparent),
+    linear-gradient(180deg, rgba(255,255,255,.018), transparent);
+  border-top: 1px solid rgba(211,160,66,.15);
+  border-bottom: 1px solid rgba(75,106,113,.16);
+  box-shadow: inset 8px 0 18px rgba(0,0,0,.16);
+}
+
+.thought-block::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(#315761, #1b2a32);
+}
+
+.thought-block span {
+  display: block;
+  margin-bottom: 10px;
+  color: #d3a042;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.thought-block p {
+  margin: 0;
+  color: #d7d0c1;
+  line-height: 1.82;
+}
+
+.solution {
+  max-height: 520px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: max-height .8s ease, opacity .7s ease, transform .7s ease, margin .7s ease, padding .7s ease;
+}
+
+.solution::before {
+  background: linear-gradient(#9b4d30, #593027);
+}
+
+.solution.is-obscured {
+  max-height: 0;
+  margin-top: 0 !important;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-width: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  overflow: hidden;
+  filter: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+.thought-progress {
+  height: 7px;
+  border: 1px solid rgba(211,160,66,.12);
+  background: linear-gradient(180deg, rgba(0,0,0,.48), rgba(255,255,255,.03));
+  box-shadow: inset 0 1px 5px rgba(0,0,0,.75);
+}
+
+.thought-progress i {
+  background: linear-gradient(90deg, #1b2a32 0%, #315761 43%, #9d4a2e 72%, #d3a042 100%);
+  box-shadow: 0 0 14px rgba(211,160,66,.18);
+}
+
+/* Columna de diálogo: panel vertical más cerrado y nombres claramente separados. */
+.dialogue-layout {
+  grid-template-columns: minmax(230px, 310px) minmax(520px, 820px);
+  gap: clamp(20px, 4vw, 52px);
+  justify-content: center;
+}
+
+.dialogue-panel {
+  position: relative;
+  min-height: 72vh;
+  padding: 24px 24px 18vh 26px;
+  border: 1px solid rgba(211,160,66,.18);
+  border-left: 5px solid #1b2a32;
+  background:
+    linear-gradient(90deg, rgba(27,42,50,.52) 0 9px, transparent 9px),
+    radial-gradient(circle at 93% 4%, rgba(139,65,38,.16), transparent 28%),
+    repeating-linear-gradient(0deg, transparent 0 8px, rgba(255,255,255,.012) 9px 10px),
+    linear-gradient(180deg, rgba(10,17,20,.97), rgba(7,11,13,.96));
+  box-shadow:
+    0 34px 90px rgba(0,0,0,.52),
+    inset 0 0 0 1px rgba(74,111,121,.12),
+    inset 20px 0 50px rgba(2,8,10,.34),
+    inset -24px 0 65px rgba(99,43,27,.08);
+}
+
+.dialogue-panel::after {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: 38px;
+  width: 5px;
+  height: 120px;
+  background: linear-gradient(#d3a042, #82432d 66%, transparent);
+  box-shadow: 0 0 18px rgba(211,160,66,.10);
+}
+
+.dialogue-log {
+  position: relative;
+  z-index: 2;
+  min-height: 390px;
+}
+
+.dialogue-entry {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(125px, 165px) 1fr;
+  gap: 18px;
+  align-items: start;
+  margin: 0;
+  padding: 17px 0 18px;
+  border-left: 0;
+  border-bottom: 1px solid rgba(224,217,195,.075);
+  background: transparent;
+}
+
+.dialogue-entry::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 3px;
+  height: 24px;
+  background: #777169;
+  box-shadow: 0 0 11px currentColor;
+}
+
+.dialogue-entry .voice {
+  position: relative;
+  grid-column: 1;
+  margin: 0;
+  padding: 4px 14px 4px 16px;
+  min-height: 34px;
+  display: flex;
+  align-items: flex-start;
+  border-right: 1px solid rgba(211,160,66,.13);
+  color: #c9c2b3;
+  font: 600 .68rem/1.35 var(--mono);
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+
+.dialogue-entry .voice::after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: 8px;
+  width: 7px;
+  height: 7px;
+  transform: rotate(45deg);
+  background: #1b2a32;
+  border: 1px solid rgba(211,160,66,.24);
+}
+
+.dialogue-entry p {
+  grid-column: 2;
+  margin: 0;
+  min-height: 1.72em;
+  color: #e0dbce;
+  font-size: clamp(1rem, 1.65vw, 1.12rem);
+  line-height: 1.74;
+  text-shadow: 0 1px 0 rgba(0,0,0,.38);
+}
+
+.dialogue-entry.narrator::before { background: #777169; }
+.dialogue-entry.shivers::before { background: #458692; }
+.dialogue-entry.inland::before { background: #a65735; }
+.dialogue-entry.electro::before { background: #ba5279; }
+.dialogue-entry.perception::before { background: #b9a852; }
+.dialogue-entry.rhetoric::before { background: #7184b3; }
+
+.dialogue-options {
+  position: relative;
+  z-index: 2;
+  margin-top: 30px;
+  border-top: 1px solid rgba(211,160,66,.20);
+  background: rgba(3,8,10,.18);
+}
+
+.dialogue-choice {
+  position: relative;
+  padding: 15px 14px 15px 10px;
+  border-bottom-color: rgba(211,160,66,.09);
+  transition: background .18s ease, color .18s ease, padding-left .18s ease;
+}
+
+.dialogue-choice::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: #d3a042;
+  transition: width .18s ease;
+}
+
+.dialogue-choice:hover {
+  padding-left: 17px;
+  color: #f2e8cf;
+  background: linear-gradient(90deg, rgba(211,160,66,.08), transparent 64%);
+}
+
+.dialogue-choice:hover::after { width: 3px; }
+.dialogue-choice:disabled { opacity: .5; cursor: wait; }
+.dialogue-choice:disabled:hover { padding-left: 10px; background: transparent; }
+.dialogue-choice:disabled:hover::after { width: 0; }
+
+.skill-check {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 92% 18%, rgba(176,60,50,.16), transparent 26%),
+    repeating-linear-gradient(115deg, transparent 0 19px, rgba(211,160,66,.018) 20px 21px),
+    linear-gradient(90deg, rgba(82,27,24,.60), rgba(12,18,20,.97));
+  border-color: rgba(190,67,56,.64);
+  border-left: 4px solid #a5483c;
+}
+
+.scene-card {
+  border-top: 3px solid #d3a042;
+  box-shadow:
+    0 28px 70px rgba(0,0,0,.52),
+    inset 0 0 0 1px rgba(49,87,97,.16);
+}
+
+.record-panel {
+  position: fixed;
+  background:
+    radial-gradient(circle at 90% 6%, rgba(148,68,37,.17), transparent 26%),
+    repeating-linear-gradient(118deg, transparent 0 24px, rgba(211,160,66,.016) 25px 26px),
+    linear-gradient(180deg, #101a1e, #080e11 72%);
+  border-left: 4px solid #d3a042;
+}
+
+.evidence-card {
+  border-left: 3px solid #1b2a32;
+  background:
+    linear-gradient(90deg, rgba(27,42,50,.34), transparent 38%),
+    radial-gradient(circle at 86% 15%, rgba(139,64,36,.13), transparent 25%),
+    rgba(9,15,17,.82);
+}
+
+.cassette__toggle {
+  min-width: 242px;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 18px, rgba(211,160,66,.018) 19px 20px),
+    linear-gradient(180deg, rgba(19,29,32,.96), rgba(6,11,13,.96));
+  border: 1px solid rgba(211,160,66,.25);
+  box-shadow:
+    0 12px 34px rgba(0,0,0,.42),
+    inset 0 0 0 1px rgba(49,87,97,.14),
+    inset 0 -10px 18px rgba(0,0,0,.22);
+}
+
+.cassette__toggle[aria-pressed="true"] {
+  border-color: rgba(211,160,66,.58);
+  color: #e5d6ad;
+}
+
+.reel {
+  border-color: #968463;
+  box-shadow: inset 0 0 0 2px rgba(27,42,50,.6), 0 0 7px rgba(211,160,66,.08);
+}
+
+@media (max-width: 900px) {
+  .dialogue-layout { grid-template-columns: 1fr; }
+  .dialogue-panel { min-height: auto; padding: 20px 18px 15vh 20px; }
+}
+
+@media (max-width: 640px) {
+  .dialogue-entry {
+    grid-template-columns: 1fr;
+    gap: 7px;
+    padding: 15px 2px 17px;
+  }
+
+  .dialogue-entry .voice {
+    grid-column: 1;
+    border-right: 0;
+    border-bottom: 1px solid rgba(211,160,66,.10);
+    padding: 3px 4px 8px 14px;
+  }
+
+  .dialogue-entry .voice::after { display: none; }
+  .dialogue-entry p { grid-column: 1; padding-left: 14px; }
+  .cassette__toggle { min-width: 0; }
 }
