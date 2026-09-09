@@ -1,18 +1,38 @@
-# El milagro de Martinaise — UI inmersiva
+# Expediente: anomalía pendiente de resolución
 
-Reemplazá en tu repositorio de GitHub Pages estos tres archivos:
+Proyecto listo para GitHub Pages.
 
+## Archivos principales
 - `index.html`
 - `style.css`
 - `script.js`
 
-Mantené tu carpeta `assets/` tal como ya la tenés. Esta versión usa `?v=8` para forzar la recarga del CSS y JavaScript nuevos.
+## Assets que tenés que colocar dentro de `assets/`
 
-## Añadido en esta versión
+### Retrato
+`assets/anto-portrait.png`
 
-- dos thought orbs interactivos en el diálogo (Lógica e Imperio Interior)
-- barks flotantes al pasar por Antowoo, cassette y pruebas
-- panel de Equipamiento Activo dentro de El Registro
-- logro final “La masa compartida” con animación dorada
-- cassette con ambiente musical sintético cálido y click mecánico al encender
-- sin penalizaciones ni cambios de Salud/Moral
+Recomendado:
+- orientación vertical
+- relación aproximada 4:5
+- retrato al óleo / expresionista
+
+### Imagen de portada opcional
+`assets/cover.jpg`
+
+Si no existe, el fondo de gradientes CSS sigue funcionando.
+
+### Canción local
+`assets/ambient.mp3`
+
+El reproductor de cassette usa ese archivo en loop.
+
+## GitHub Pages
+Subí a la raíz:
+- index.html
+- style.css
+- script.js
+- carpeta assets/
+
+Después:
+Settings → Pages → Deploy from a branch → main → /(root)
