@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Caslon+Text:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=8" />
+  <link rel="stylesheet" href="style.css?v=9" />
 </head>
-<body>
+<body data-scene="loading">
   <div class="world-bg" aria-hidden="true">
     <div class="world-bg__city"></div>
     <div class="world-bg__glow"></div>
@@ -69,11 +69,21 @@
       </div>
       <button id="record-close" class="icon-btn" type="button" aria-label="Cerrar el Registro">×</button>
     </div>
+    <nav class="record-tabs" aria-label="Secciones del archivo">
+      <button class="record-tab is-active" type="button" data-record-tab="evidence" aria-selected="true">
+        El Registro <span>4</span>
+      </button>
+      <button class="record-tab" type="button" data-record-tab="memories" aria-selected="false">
+        Pensamientos Internalizados <span>4</span>
+      </button>
+    </nav>
+
+    <div id="record-tab-evidence" class="record-tab-panel is-active" data-record-panel="evidence">
     <div class="evidence-grid">
       <article class="evidence-card" data-bark="Evidencia incontestable.">
         <span class="evidence-card__index">01</span>
         <h3>Entradas de cine para Lady Bird</h3>
-        <p>Fantasmas de luz proyectados sobre una sábana blanca. El mundo exterior se disolvía a cero grados, pero en la penumbra, la fricción de sus manos era la única masa sólida en el espacio.</p>
+        <p>Fantasmas de luz proyectados sobre una sábana blanca. El mundo exterior se disolvía a cero grados, pero en la penumbra, la fricción entre tu mano y la de ella era la única masa sólida en el espacio.</p>
       </article>
       <article class="evidence-card" data-bark="Evidencia incontestable.">
         <span class="evidence-card__index">02</span>
@@ -112,6 +122,43 @@
         </article>
       </div>
     </section>
+    </div>
+
+    <div id="record-tab-memories" class="record-tab-panel" data-record-panel="memories">
+      <div class="memory-intro">
+        <span>Archivo cognitivo / 04 entradas</span>
+        <p>Algunas cosas dejaron de ser recuerdos sueltos. La repetición, aparentemente, les dio estructura.</p>
+      </div>
+
+      <div class="memory-grid">
+        <button class="memory-card" type="button" data-memory="first-laugh">
+          <span class="memory-card__number">01</span>
+          <div><small>Pensamiento internalizado</small><h3>La primera risa fuera de control</h3></div>
+          <span class="memory-card__arrow">→</span>
+        </button>
+        <button class="memory-card" type="button" data-memory="longchamps">
+          <span class="memory-card__number">02</span>
+          <div><small>Pensamiento internalizado</small><h3>Las rutas nocturnas hacia Longchamps</h3></div>
+          <span class="memory-card__arrow">→</span>
+        </button>
+        <button class="memory-card" type="button" data-memory="hug">
+          <span class="memory-card__number">03</span>
+          <div><small>Pensamiento internalizado</small><h3>El pacto del abrazo</h3></div>
+          <span class="memory-card__arrow">→</span>
+        </button>
+        <button class="memory-card" type="button" data-memory="not-date">
+          <span class="memory-card__number">04</span>
+          <div><small>Pensamiento internalizado</small><h3>La no-cita inicial</h3></div>
+          <span class="memory-card__arrow">→</span>
+        </button>
+      </div>
+
+      <article id="memory-detail" class="memory-detail is-empty">
+        <span class="memory-detail__status">ESPERANDO SELECCIÓN</span>
+        <h3 id="memory-detail-title">Pensamiento no seleccionado</h3>
+        <p id="memory-detail-text">Elegí una entrada para reconstruirla.</p>
+      </article>
+    </div>
   </aside>
   <button id="record-backdrop" class="record-backdrop" type="button" aria-label="Cerrar panel"></button>
 
@@ -161,7 +208,7 @@
           <div class="character-card__body">
             <p class="character-card__role">Personaje disponible</p>
             <h2>Antowoo</h2>
-            <p>Paredes firmes en el exterior que ceden ante la confianza. Por dentro, un gabinete de pensamientos caóticos y estallidos de música. En la penumbra adecuada, su forma de habitar el mundo se reduce a la risa, el baile y la necesidad física de un abrazo.</p>
+            <p>Paredes firmes en el exterior que ceden ante la confianza. Por dentro, un gabinete de pensamientos caóticos y estallidos de música. En la penumbra adecuada, tu forma de habitar el mundo se reduce a la risa, el baile y la necesidad física de un abrazo.</p>
             <div class="stat-stack" aria-label="Estadísticas de Antowoo">
               <div><span>Empatía</span><b>5/5</b></div>
               <div><span>Imperio Interior</span><b>5/5</b></div>
@@ -216,13 +263,29 @@
     <section id="dialogue-screen" class="screen dialogue-screen is-hidden" data-screen>
       <div class="dialogue-layout">
         <div class="thought-orbs" aria-label="Pensamientos disponibles">
-          <button class="thought-orb thought-orb--logic" type="button" data-orb="logic" aria-label="Escuchar a Lógica">
+          <button class="thought-orb thought-orb--red orb-pos-1" type="button" data-orb="first-kiss" aria-label="El Primer Beso">
             <span class="thought-orb__core" aria-hidden="true"></span>
-            <span class="thought-orb__label">Lógica</span>
+            <span class="thought-orb__label">El Primer Beso</span>
           </button>
-          <button class="thought-orb thought-orb--inland" type="button" data-orb="inland" aria-label="Escuchar a Imperio Interior">
+          <button class="thought-orb thought-orb--red orb-pos-2" type="button" data-orb="foosball" aria-label="Metegol en Acatraz">
             <span class="thought-orb__core" aria-hidden="true"></span>
-            <span class="thought-orb__label">Imperio Interior</span>
+            <span class="thought-orb__label">Metegol en Acatraz</span>
+          </button>
+          <button class="thought-orb thought-orb--blue orb-pos-3" type="button" data-orb="lemon-cake" aria-label="El Budín de Limón">
+            <span class="thought-orb__core" aria-hidden="true"></span>
+            <span class="thought-orb__label">El Budín de Limón</span>
+          </button>
+          <button class="thought-orb thought-orb--blue orb-pos-4" type="button" data-orb="love-escape" aria-label="El Te quiero a la fuga">
+            <span class="thought-orb__core" aria-hidden="true"></span>
+            <span class="thought-orb__label">El “Te quiero” a la fuga</span>
+          </button>
+          <button class="thought-orb thought-orb--purple orb-pos-5" type="button" data-orb="chest" aria-label="Dormir en su pecho">
+            <span class="thought-orb__core" aria-hidden="true"></span>
+            <span class="thought-orb__label">Dormir en su pecho</span>
+          </button>
+          <button class="thought-orb thought-orb--purple orb-pos-6" type="button" data-orb="lomitas" aria-label="Fotos en Las Lomitas">
+            <span class="thought-orb__core" aria-hidden="true"></span>
+            <span class="thought-orb__label">Fotos en Las Lomitas</span>
           </button>
         </div>
         <aside class="scene-card" aria-hidden="true">
@@ -242,11 +305,25 @@
           <div id="dialogue-options" class="dialogue-options"></div>
           <div id="skill-check" class="skill-check is-hidden">
             <div class="skill-check__head">
-              <span>[IMPERIO INTERIOR — Tirada roja]</span>
-              <b>100%</b>
+              <span>[VOLICIÓN — Tirada roja]</span>
+              <b>Dificultad 20</b>
             </div>
-            <p>Sostener la mirada y aceptar lo que la evidencia sostiene.</p>
-            <button id="roll-btn" class="roll-btn" type="button">
+            <p class="skill-check__prompt">Romper la inercia y pedirle que sea tu novia.</p>
+
+            <div class="love-modifiers">
+              <div><span>Horas acumuladas en el sillón</span><b>+5</b></div>
+              <div><span>Risas compartidas en la penumbra</span><b>+7</b></div>
+              <div><span>Abrazos contra el frío</span><b>+10</b></div>
+              <div><span>Viajes nocturnos y complicidad</span><b>+8</b></div>
+              <div class="love-modifiers__critical"><span>Ganas absolutas de caminar la vida juntas</span><b>+99</b></div>
+            </div>
+
+            <div class="skill-check__probability">
+              <span>Probabilidad calculada</span>
+              <strong>100%</strong>
+            </div>
+
+            <button id="roll-btn" class="roll-btn roll-btn--red" type="button">
               <span class="dice-pair" aria-hidden="true"><i>1</i><i>1</i></span>
               <span>Tirar los dados</span>
             </button>
@@ -263,25 +340,25 @@
           <span class="voice">NARRADOR</span>
           <p>El archivo se cierra sobre la mesa. Ya no hay más hipótesis que comprobar ni más variables que medir. La persona a tu lado se gira hacia ti y formula la pregunta final:</p>
         </div>
-        <h1>Anto, ¿quieres ser mi novia?</h1>
+        <h1>Anto, ¿querés ser su novia?</h1>
         <div class="final-options">
           <button class="final-choice" type="button" data-answer="interior">
             <span>[SÍ — Imperio Interior]</span>
-            “No hay ningún otro lugar en este mundo en el que prefiera estar.”
+            Aceptar que no hay ningún otro lugar en el mundo en el que prefieras estar.
           </button>
           <button class="final-choice" type="button" data-answer="logic">
             <span>[SÍ — Lógica]</span>
-            “La evidencia era incontestable. Era la única conclusión posible.”
+            Aceptar la conclusión. La evidencia es incontestable.
           </button>
         </div>
-        <button id="doubt-btn" class="tiny-doubt" type="button">...¿y si me retiro hacia la nada?</button>
+        <button id="doubt-btn" class="tiny-doubt" type="button">...considerar una retirada hacia la nada</button>
       </div>
     </section>
 
     <section id="success-screen" class="screen success-screen is-hidden" data-screen>
       <div class="resolved-banner"><span>Caso resuelto</span></div>
       <div class="success-copy">
-        <p>Las luces de la ciudad pueden parpadear afuera, pero este pequeño rincón del universo está a salvo. El archivo está cerrado, Detective. Caminemos hacia lo que sigue.</p>
+        <p>Las luces de la ciudad pueden parpadear afuera, pero este pequeño rincón del universo está a salvo. El archivo está cerrado, Detective. Lo que sigue ya no necesita hipótesis.</p>
         <button id="restart-btn" class="text-button" type="button">Volver a abrir el archivo</button>
       </div>
       <div id="achievement" class="achievement" role="status" aria-live="polite">
@@ -314,11 +391,12 @@
           <span id="orb-modal-voice">LÓGICA</span>
           <button id="orb-modal-close" type="button" aria-label="Cerrar pensamiento">×</button>
         </div>
+        <h3 id="orb-modal-title" class="orb-modal__title">Pensamiento</h3>
         <p id="orb-modal-text"></p>
       </div>
     </article>
   </div>
 
-  <script src="script.js?v=8"></script>
+  <script src="script.js?v=9"></script>
 </body>
 </html>

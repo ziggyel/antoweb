@@ -29,13 +29,66 @@ const screenUi = {
 };
 
 const orbThoughts = {
-  logic: {
-    voice: "LÓGICA",
-    text: "Dato: El ritmo cardíaco de la persona a tu lado aumentó cuando se sentaron juntas.",
+  "first-kiss": {
+    voice: "ELECTROQUÍMICA",
+    title: "El Primer Beso",
+    tone: "red",
+    color: "#b94e48",
+    text: "Su auto estacionado frente a tu casa de noche. Un impulso eléctrico incontrolable borró la distancia entre ambas. El primer beso que te dio no fue un evento planeado; fue una colisión inevitable.",
   },
-  inland: {
+  foosball: {
+    voice: "COORDINACIÓN OJO-MANO",
+    title: "Metegol en Acatraz",
+    tone: "red",
+    color: "#b94e48",
+    text: "El sonido metálico de la pelota en Acatraz. Las estadísticas decían que no te ibas a dejar ganar, pero la victoria cayó del lado de ella. Un expediente que todavía te negás a revisar.",
+  },
+  "lemon-cake": {
+    voice: "LÓGICA",
+    title: "El Budín de Limón",
+    tone: "blue",
+    color: "#54b3d8",
+    text: "Suministro táctico de azúcar enviado a UADE. El budín de limón casero que ella te llevó, diseñado para reducir tu estrés universitario en un 100%.",
+  },
+  "love-escape": {
+    voice: "LÓGICA",
+    title: "El “Te quiero” a la fuga",
+    tone: "blue",
+    color: "#54b3d8",
+    text: "Le dijiste dos palabras en el auto y, antes de que ella pudiera procesarlo, abriste la puerta y saliste corriendo hacia la entrada. El impulso de tu sinceridad superó cualquier contención.",
+  },
+  chest: {
     voice: "IMPERIO INTERIOR",
-    text: "La luz del televisor parpadea en un código morse que solo ustedes dos entienden.",
+    title: "Dormir en su pecho",
+    tone: "purple",
+    color: "#ab65c7",
+    text: "La cabeza de ella descansando sobre tu pecho en la penumbra de la noche, mientras la rodeabas con tus brazos. El ritmo de tus latidos convirtiéndose en la única frecuencia para apagar el mundo.",
+  },
+  lomitas: {
+    voice: "IMPERIO INTERIOR",
+    title: "Fotos en Las Lomitas",
+    tone: "purple",
+    color: "#ab65c7",
+    text: "Cuatro flashes dentro de una cabina pequeña en Las Lomitas. Las primeras fotos juntas impresas que capturaron el inicio del expediente.",
+  },
+};
+
+const internalizedMemories = {
+  "first-laugh": {
+    title: "La primera risa fuera de control",
+    text: "Un colapso repentino del protocolo exterior. La prueba irrefutable de que la gravedad entre ambas ya se había roto.",
+  },
+  longchamps: {
+    title: "Las rutas nocturnas hacia Longchamps",
+    text: "Luces de neón en la penumbra, canchas de fútbol iluminadas al pasar y telos a la orilla del camino. Un recorrido a través de la noche donde el destino importaba menos que el trayecto compartido.",
+  },
+  hug: {
+    title: "El pacto del abrazo",
+    text: "Contacto físico continuo que reduce a cero la inercia del invierno. La frontera exacta donde termina el ruido del mundo.",
+  },
+  "not-date": {
+    title: "La no-cita inicial",
+    text: "Un encuentro enmarcado bajo el protocolo formal de la amistad pura. En su momento, creíste que era solo una reunión casual. Sin embargo, la reevaluación del expediente demuestra lo contrario: aquella ‘no-cita’ fue el primer paso de ella para acercarse a vos de forma inevitable.",
   },
 };
 
@@ -51,6 +104,11 @@ const introLines = [
     text: "El aire en la habitación es denso. Un sillón verde acolchado sostiene el peso de dos cuerpos. De fondo, la luz azulada e hipnótica del televisor parpadea como un faro extinto. A tus pies, un perro y un gato descansan en un equilibrio casi milagroso. Al otro lado del cristal, los motores de los autos se deslizan en la noche, llevando a extraños hacia ninguna parte."
   },
   {
+    voice: "LÓGICA [Éxito Crítico]",
+    cls: "logic",
+    text: "Has calculado las variables numéricas: 8.000 millones de personas, coordenadas geográficas arbitrarias, infinitas decisiones insignificantes en la línea de tiempo. Estadísticamente, que ustedes dos hayan coincidido en este punto exacto del universo es una anomalía de probabilidad cercana a cero. Y sin embargo, la evidencia física demuestra que están sentadas en el mismo sillón."
+  },
+  {
     voice: "IMPERIO INTERIOR",
     cls: "inland",
     text: "Hay una simetría extraña en todo esto. El universo se desmorona afuera a una velocidad constante, pero dentro de este radio de unos pocos metros cuadrados, la materia se niega a enfriarse."
@@ -60,7 +118,7 @@ const introLines = [
 const choices = [
   {
     id: "person",
-    label: "Observar a la persona sentada a mi lado en el sillón.",
+    label: "Observar a la persona sentada a tu lado en el sillón.",
     lines: [
       {
         voice: "NARRADOR",
@@ -123,6 +181,7 @@ function showScreen(name) {
     element.classList.toggle("is-hidden", key !== name);
   });
   state.screen = name;
+  document.body.dataset.scene = name;
   $("#bark")?.classList.remove("is-visible");
   $("#bark")?.setAttribute("aria-hidden", "true");
   if (name !== "dialogue") closeOrbModal();
@@ -270,8 +329,8 @@ async function rollDice() {
       pair.classList.remove("rolling");
       dice[0].textContent = "6";
       dice[1].textContent = "6";
-      $("#roll-result").textContent = "[ÉXITO — 100%] El mundo, por una vez, no discute la conclusión.";
-      setTimeout(() => showScreen("final"), 1700);
+      $("#roll-result").innerHTML = `<strong>[ÉXITO CRÍTICO — 20/20]</strong><span>Contra toda lógica estadística, la inercia ha perdido.</span>`;
+      setTimeout(() => showScreen("final"), 1900);
     }
   }, 90);
 }
@@ -290,13 +349,50 @@ function closeRecord() {
   $("#record-btn").setAttribute("aria-expanded", "false");
 }
 
+function activateRecordTab(name) {
+  $$(".record-tab").forEach(button => {
+    const active = button.dataset.recordTab === name;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-selected", String(active));
+  });
+
+  $$("[data-record-panel]").forEach(panel => {
+    panel.classList.toggle("is-active", panel.dataset.recordPanel === name);
+  });
+}
+
+$$('.record-tab').forEach(button => {
+  button.addEventListener("click", () => activateRecordTab(button.dataset.recordTab));
+});
+
+$$('[data-memory]').forEach(button => {
+  button.addEventListener("click", () => {
+    const memory = internalizedMemories[button.dataset.memory];
+    if (!memory) return;
+
+    $$(".memory-card").forEach(card => {
+      card.classList.toggle("is-active", card === button);
+    });
+
+    const detail = $("#memory-detail");
+    detail.classList.remove("is-empty");
+    $("#memory-detail-title").textContent = memory.title;
+    $("#memory-detail-text").textContent = memory.text;
+    $(".memory-detail__status").textContent = "PENSAMIENTO INTERNALIZADO";
+  });
+});
+
 function openOrbModal(key) {
   const thought = orbThoughts[key];
   const modal = $("#orb-modal");
   if (!thought || !modal) return;
 
-  modal.dataset.tone = key;
+  modal.dataset.tone = thought.tone;
+  const card = $(".orb-modal__card", modal);
+  if (card) card.style.setProperty("--orb-modal-color", thought.color);
+
   $("#orb-modal-voice").textContent = thought.voice;
+  $("#orb-modal-title").textContent = thought.title;
   $("#orb-modal-text").textContent = thought.text;
   modal.classList.add("is-open");
   modal.setAttribute("aria-hidden", "false");
