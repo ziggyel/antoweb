@@ -58,7 +58,7 @@ const orbThoughts = {
     title: "El Primer Beso",
     color: "#c04a44",
     text:
-      "El auto detenido frente a tu casa. El motor en silencio, las sombras de la noche contra el parabrisas. Una descarga sináptica ineludible que anuló la prudencia. No fue un acto calculado; fue una colisión electromagnética inevitadora.",
+      "El auto detenido frente a tu casa. El motor en silencio, las sombras de la noche contra el parabrisas. Una descarga sináptica ineludible que anuló la prudencia. No fue un acto calculated; fue una colisión electromagnética inevitable.",
   },
 
   foosball: {
@@ -106,6 +106,25 @@ const orbThoughts = {
    DATOS — DIÁLOGO POR PASOS
    ========================================================= */
 const dialogueStages = [
+  {
+    label: "Inspección inicial",
+    title: "Apertura del expediente",
+    lines: [
+      {
+        voice: "PERCEPCIÓN",
+        cls: "narrator",
+        text:
+          "Un archivo comprimido aguarda en la pantalla. La firma digital pertenece a un viejo conocido. Tenés la opción de ignorarlo o proceder con la auditoría de los hechos registrados.",
+      },
+      {
+        voice: "LÓGICA",
+        cls: "logic",
+        text:
+          "Ignorarlo no es una opción metodológicamente sólida. Hay demasiada evidencia acumulada como para dejar el caso en el olvido.",
+      },
+    ],
+  },
+
   {
     label: "Paso 1 de 4",
     title: "El escenario",
@@ -158,7 +177,7 @@ const dialogueStages = [
         voice: "LÓGICA",
         cls: "logic",
         text:
-          "Categorizar este volumen de eventos bajo el rotulo de 'azar' o 'afecto meramente circunstancial' constituye una negligencia analítica inaceptable. Mantener la etiqueta de 'Pendiente' desobedecería abiertamente las leyes elementales de la causa y el efecto.",
+          "Categorizar este volumen de eventos bajo el rótulo de 'azar' o 'afecto meramente circunstancial' constituye una negligencia analítica inaceptable. Mantener la etiqueta de 'Pendiente' desobedecería abiertamente las leyes elementales de la causa y el efecto.",
       },
     ],
   },
@@ -295,7 +314,12 @@ async function renderDialogueStage() {
 
   const nextButton = $("#dialogue-next");
 
-  if (state.dialogueStep < dialogueStages.length - 1) {
+  if (state.dialogueStep === 0) {
+    nextButton.innerHTML = `
+      <span>1.</span>
+      <b>[Investigar] Desplegar las evidencias recopiladas en la memoria.</b>
+    `;
+  } else if (state.dialogueStep < dialogueStages.length - 1) {
     nextButton.innerHTML = `
       <span>1.</span>
       <b>Continuar examinando las pruebas del expediente.</b>
