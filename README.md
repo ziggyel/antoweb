@@ -1,27 +1,43 @@
-# Expediente: anomalía pendiente de resolución — UI inspirada en Disco Elysium
+# Expediente: anomalía pendiente de resolución — versión con mecánicas
 
-Esta versión mantiene la narrativa y la lógica del proyecto, pero rehace la jerarquía visual para acercarla mucho más a la interfaz de *Disco Elysium*.
+Esta versión parte de los archivos actuales del proyecto y suma interacciones inspiradas en los sistemas de *Disco Elysium*, sin usar assets oficiales del juego.
 
-## Tipografía
+## Qué se agregó
 
-La interfaz real de *Disco Elysium* usa **Dobra Black** para el logo/header y **Sina Nova** para diálogo. Esas fuentes no se incluyen en este proyecto. El CSS las pone primero en la pila por si ya están instaladas y utiliza alternativas web gratuitas:
+- **Tareas / journal** en el HUD, con progreso automático.
+- **Check blanco de Empatía**: falla obligatoriamente la primera vez, queda bloqueado y se reabre después de investigar.
+- **Living investigable**: seis puntos clickeables sobre la ilustración (`sillón`, `manta`, `televisión`, `mesa`, `salida`, `ventana`). Hay que descubrir al menos tres.
+- **Checks pasivos** de habilidades que interrumpen el diálogo con observaciones breves.
+- **Thought Cabinet**: aparece el pensamiento **“La forma de un hogar”**, se puede internalizar y revela problema, solución y efectos.
+- **Pruebas / thought orbs**: después de internalizar el pensamiento hay que revisar cualquier tres recuerdos del expediente.
+- **Tirada roja final**: los modificadores encontrados quedan resaltados y la probabilidad se actualiza según la evidencia reunida.
+- **Texto del diálogo** reajustado para ser más íntimo, melancólico y menos administrativo.
 
-- `Encode Sans Condensed` para títulos/UI.
-- `Libre Baskerville` para diálogo y prosa.
-- `IBM Plex Mono` para pequeños datos técnicos.
+## Cómo subirlo a GitHub
 
-## Assets
+Reemplazá en la raíz de tu repositorio:
 
-Colocá dentro de `assets/`:
+- `index.html`
+- `style.css`
+- `script.js`
 
-- `anto-portrait.png` — retrato vertical de Anto.
-- `cover.jpg` — imagen pictórica opcional de portada/fondo.
-- `ambient.mp3` — canción local del cassette.
+**No borres tu carpeta `assets/`.** Esta versión sigue usando los mismos nombres:
 
-## GitHub Pages
+- `assets/anto-portrait.png`
+- `assets/living.png`
+- `assets/ambient.mp3`
 
-Subí `index.html`, `style.css`, `script.js` y la carpeta `assets/` a la raíz del repositorio.
+El HTML ya tiene `?v=de5` en CSS y JS para ayudar a evitar que GitHub Pages muestre una versión vieja en caché.
 
+## Recorrido nuevo
 
-## Ilustración del living
-`assets/living.png` es la imagen usada en la escena de diálogo. Para cambiarla, reemplazá ese archivo manteniendo el mismo nombre.
+1. Revisar expediente.
+2. Entrar al living.
+3. Intentar un check blanco de Empatía.
+4. Fallar y examinar al menos tres objetos del living.
+5. Reintentar el check blanco.
+6. Internalizar “La forma de un hogar”.
+7. Revisar cualquier tres esferas / pruebas.
+8. Continuar el diálogo con checks pasivos.
+9. Llegar a la tirada roja de Volición.
+10. Resolver el caso.

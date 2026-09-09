@@ -18,7 +18,7 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="style.css?v=de4" />
+  <link rel="stylesheet" href="style.css?v=de5" />
 </head>
 
 <body data-phase="cold" data-step="start">
@@ -53,6 +53,17 @@
       >
         Pensamientos internalizados
         <span>4</span>
+      </button>
+
+      <button
+        id="tasks-toggle"
+        class="hud-button"
+        type="button"
+        aria-controls="tasks-panel"
+        aria-expanded="false"
+      >
+        Tareas
+        <span id="tasks-count">0/6</span>
       </button>
 
       <button
@@ -163,6 +174,53 @@
   ></button>
 
   <!-- =========================================================
+       PANEL LATERAL — TAREAS
+       ========================================================= -->
+  <aside id="tasks-panel" class="tasks-panel" aria-hidden="true">
+    <div class="tasks-panel__header">
+      <div>
+        <p class="eyebrow">Diario</p>
+        <h2>Tareas</h2>
+      </div>
+      <button id="tasks-close" class="icon-button" type="button" aria-label="Cerrar tareas">×</button>
+    </div>
+
+    <p class="tasks-panel__intro">
+      El expediente no se resuelve leyendo en línea recta. Hay cosas que mirar,
+      recuerdos que revisar y una pregunta que todavía no acepta ser formulada.
+    </p>
+
+    <div class="task-list">
+      <article class="task-item is-active" data-task="review">
+        <span class="task-item__mark">○</span>
+        <div><strong>Revisar el expediente pendiente</strong><small>Confirmar el sujeto y entrar al caso.</small></div>
+      </article>
+      <article class="task-item" data-task="living">
+        <span class="task-item__mark">○</span>
+        <div><strong>Examinar el living</strong><small>Encontrar al menos tres detalles relevantes.</small></div>
+      </article>
+      <article class="task-item" data-task="white">
+        <span class="task-item__mark">○</span>
+        <div><strong>Reintentar el check blanco</strong><small>Volver cuando haya suficiente contexto.</small></div>
+      </article>
+      <article class="task-item" data-task="thought">
+        <span class="task-item__mark">○</span>
+        <div><strong>Internalizar un pensamiento</strong><small>Resolver “La forma de un hogar”.</small></div>
+      </article>
+      <article class="task-item" data-task="evidence">
+        <span class="task-item__mark">○</span>
+        <div><strong>Revisar tres pruebas del expediente</strong><small>Cualquier combinación sirve.</small></div>
+      </article>
+      <article class="task-item" data-task="resolve">
+        <span class="task-item__mark">○</span>
+        <div><strong>Resolver la anomalía</strong><small>Una tirada roja. Sin segundo intento.</small></div>
+      </article>
+    </div>
+  </aside>
+
+  <button id="tasks-backdrop" class="panel-backdrop" type="button" aria-label="Cerrar tareas"></button>
+
+  <!-- =========================================================
        MODAL DE ESFERAS
        ========================================================= -->
   <div id="orb-modal" class="orb-modal" aria-hidden="true">
@@ -202,6 +260,35 @@
   </div>
 
   <!-- =========================================================
+       THOUGHT CABINET — NUEVO PENSAMIENTO
+       ========================================================= -->
+  <div id="thought-cabinet-modal" class="thought-cabinet-modal" aria-hidden="true">
+    <button id="thought-cabinet-backdrop" class="thought-cabinet-modal__backdrop" type="button" aria-label="Cerrar pensamiento"></button>
+
+    <article class="thought-cabinet-card" role="dialog" aria-modal="true" aria-labelledby="thought-cabinet-title">
+      <div class="thought-cabinet-art" aria-hidden="true"><span></span><i></i><b></b></div>
+      <div class="thought-cabinet-copy">
+        <div class="thought-cabinet-topline">
+          <span>NUEVO PENSAMIENTO</span>
+          <button id="thought-cabinet-close" type="button" aria-label="Cerrar pensamiento">×</button>
+        </div>
+        <h2 id="thought-cabinet-title">La forma de un hogar</h2>
+        <div class="thought-section">
+          <small>PROBLEMA</small>
+          <p>Hay lugares a los que se vuelve. Hay personas a las que también. Resulta preocupante que tu cerebro haya empezado a confundir ambas categorías.</p>
+        </div>
+        <button id="internalize-thought" class="internalize-button" type="button">[INTERNALIZAR]</button>
+        <div id="thought-progress" class="thought-progress is-hidden" aria-hidden="true"><span></span></div>
+        <div id="thought-solution" class="thought-section thought-section--solution is-hidden">
+          <small>SOLUCIÓN</small>
+          <p>Quizás nunca hubo confusión. Tal vez un hogar también pueda ser una persona que levanta una esquina de la manta para hacerte lugar.</p>
+          <div class="thought-effects"><b>+2 EMPATÍA</b><span>cuando ella está cerca</span><b>-1 LÓGICA</b><span>al momento de despedirse</span></div>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- =========================================================
        APP
        ========================================================= -->
   <main id="app" class="app">
@@ -219,7 +306,8 @@
           <h1>EXPEDIENTE:<br>ANOMALÍA PENDIENTE DE RESOLUCIÓN</h1>
 
           <p class="start-copy__question">
-            ¿Cuándo empezó a sentirse raro imaginar una vida donde ella no estuviera?
+            ¿Por qué, con todas las pruebas irrefutables de amor que existen
+            entre ambas, todavía no son novias?
           </p>
 
           <button id="review-button" class="primary-button" type="button">
@@ -308,13 +396,26 @@
       <div class="dialogue-layout">
 
         <aside class="scene-panel">
-          <div class="scene-panel__image">
+          <div class="scene-panel__image" id="scene-investigation">
             <!-- Ilustración del living. Reemplazá assets/living.png si querés cambiarla. -->
             <img
               src="assets/living.png"
               alt="Vista pictórica desde arriba del living con Anto y ella sentadas juntas en el sillón"
               class="scene-panel__art"
             />
+
+            <div id="scene-investigation-hint" class="scene-investigation-hint is-hidden">
+              <span>INVESTIGAR</span>
+              <b>El check falló. Mirá alrededor.</b>
+              <small><span id="scene-clue-count">0</span>/3 detalles relevantes</small>
+            </div>
+
+            <button class="scene-hotspot scene-hotspot--sofa" type="button" data-scene-clue="sofa" aria-label="Examinar el sillón"><span></span><small>Sillón</small></button>
+            <button class="scene-hotspot scene-hotspot--blanket" type="button" data-scene-clue="blanket" aria-label="Examinar la manta"><span></span><small>Manta</small></button>
+            <button class="scene-hotspot scene-hotspot--tv" type="button" data-scene-clue="television" aria-label="Examinar la televisión"><span></span><small>Televisión</small></button>
+            <button class="scene-hotspot scene-hotspot--table" type="button" data-scene-clue="table" aria-label="Examinar la mesa"><span></span><small>Mesa</small></button>
+            <button class="scene-hotspot scene-hotspot--door" type="button" data-scene-clue="doorway" aria-label="Examinar la salida"><span></span><small>Salida</small></button>
+            <button class="scene-hotspot scene-hotspot--window" type="button" data-scene-clue="window" aria-label="Examinar la ventana"><span></span><small>Ventana</small></button>
           </div>
 
           <div class="scene-panel__caption">
@@ -338,6 +439,32 @@
 
           <div id="dialogue-log" class="dialogue-log" aria-live="polite"></div>
 
+          <section id="white-check" class="white-check is-hidden" aria-live="polite">
+            <div class="white-check__topline">
+              <span>CHECK BLANCO</span>
+              <b id="white-check-percent">8%</b>
+            </div>
+            <h3>[EMPATÍA — IMPOSIBLE]</h3>
+            <p id="white-check-prompt">Determinar cuándo empezó todo esto.</p>
+            <button id="white-check-button" class="white-check__button" type="button">
+              <span class="white-check__dice">⚄ ⚁</span>
+              <b>Intentarlo.</b>
+            </button>
+            <div id="white-check-result" class="white-check__result"></div>
+          </section>
+
+          <button id="new-thought-notice" class="new-thought-notice is-hidden" type="button">
+            <span>✦</span>
+            <div><small>HA SURGIDO UN NUEVO PENSAMIENTO</small><strong>La forma de un hogar</strong></div>
+            <b>→</b>
+          </button>
+
+          <div id="evidence-progress" class="evidence-progress is-hidden">
+            <span>PRUEBAS REVISADAS</span>
+            <strong><b id="evidence-count">0</b>/3</strong>
+            <small>Elegí cualquier tres esferas. No hay una combinación correcta.</small>
+          </div>
+
           <div id="dialogue-action" class="dialogue-action is-hidden">
             <button id="dialogue-next" class="dialogue-choice" type="button">
               <span>1.</span>
@@ -348,7 +475,7 @@
           <!-- =================================================
                6 ESFERAS DE PENSAMIENTO
                ================================================= -->
-          <div class="thought-orbs" aria-label="Pruebas del amor">
+          <div class="thought-orbs are-locked" aria-label="Pruebas del expediente">
             <button
               class="thought-orb thought-orb--red orb-pos-1"
               type="button"
@@ -432,34 +559,23 @@
           <h1>[VOLICIÓN — Dificultad 20]</h1>
 
           <p class="check-card__prompt">
-            Oficializar la alianza y pedirle que sea tu novia.
+            Hacer la pregunta. Esta tirada no puede repetirse.
           </p>
 
-          <div class="modifier-list">
-            <div>
-              <span>Horas acumuladas en el sillón</span>
-              <b>+5</b>
-            </div>
+          <div class="red-check-chance">
+            <span>PROBABILIDAD</span>
+            <strong id="red-check-percent">97%</strong>
+          </div>
 
-            <div>
-              <span>Risas compartidas en la penumbra</span>
-              <b>+7</b>
-            </div>
-
-            <div>
-              <span>Abrazos contra el frío</span>
-              <b>+10</b>
-            </div>
-
-            <div>
-              <span>Viajes nocturnos a Longchamps</span>
-              <b>+8</b>
-            </div>
-
-            <div class="modifier-list__critical">
-              <span>Ganas absolutas de caminar la vida juntas</span>
-              <b>+99</b>
-            </div>
+          <div id="final-modifiers" class="modifier-list">
+            <div data-modifier-key="first-kiss"><span>El Primer Beso</span><b>+5</b></div>
+            <div data-modifier-key="lemon-cake"><span>El Budín de Limón</span><b>+3</b></div>
+            <div data-modifier-key="love-escape"><span>El “Te quiero” a la fuga</span><b>+4</b></div>
+            <div data-modifier-key="safe-place"><span>Lugar seguro</span><b>+6</b></div>
+            <div data-modifier-key="lomitas"><span>Fotos en Las Lomitas</span><b>+2</b></div>
+            <div data-modifier-key="foosball"><span>Metegol en Acatraz</span><b>+2</b></div>
+            <div data-modifier-key="home"><span>La forma de un hogar</span><b>+10</b></div>
+            <div class="modifier-list__critical is-earned"><span>Ganas absolutas de seguir encontrándose</span><b>+99</b></div>
           </div>
 
           <button id="roll-button" class="roll-button" type="button">
@@ -538,6 +654,6 @@
 
   </main>
 
-  <script src="script.js?v=de3"></script>
+  <script src="script.js?v=de5"></script>
 </body>
 </html>
