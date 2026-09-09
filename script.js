@@ -21,36 +21,36 @@ const state = {
 };
 
 /* =========================================================
-   DATOS — RECUERDOS
+   DATOS — RECUERDOS (Gabinete de pensamientos internalizados)
    ========================================================= */
 const memories = {
   "first-laugh": {
     title: "La primera risa fuera de control",
     text:
-      "Un colapso repentino del protocolo exterior. La prueba de que la distancia entre ambas ya se había roto.",
+      "Un colapso repentino y definitivo de la fachada institucional. El instante exacto donde la compostura fue incinerada y la distancia entre ambas se redujo a cenizas irrevocables.",
   },
 
   longchamps: {
     title: "Las rutas nocturnas hacia Longchamps",
     text:
-      "Luces de neón en la penumbra, canchas de fútbol iluminadas al pasar y telos a la orilla del camino. Un recorrido a través de la noche donde el destino importaba menos que el trayecto compartido.",
+      "Faroles amarillos cortando la neblina del sur, canchas de fútbol vacías y telos dormidos a la orilla del camino. Un recorrido hipnótico a través de la penumbra donde la geografía era lo de menos; lo único real era el peso del aire compartido dentro del habitáculo.",
   },
 
   hug: {
     title: "El pacto del abrazo",
     text:
-      "Contacto físico continuo que reduce a cero la inercia del invierno. La frontera exacta donde termina el ruido del mundo.",
+      "Materia contra materia. Un anclaje físico de alta densidad que neutraliza por completo la inercia del invierno y acalla el murmullo hostil del resto del mundo.",
   },
 
   "not-date": {
     title: "La no-cita inicial",
     text:
-      "Un encuentro enmarcado bajo el protocolo formal de la amistad pura. En su momento, creíste que era solo una reunión casual. Sin embargo, la reevaluación del expediente demuestra lo contrario: aquella “no-cita” fue el primer paso de ella para acercarse a vos de forma inevitable.",
+      "Un encuentro disfrazado bajo el rigor del protocolo de la 'amistad pura'. En su momento pretendiste creer que era solo una reunión casual. Sin embargo, la reevaluación retrospectiva del expediente revela la verdad: aquella 'no-cita' fue la primera maniobra de aproximación gravitacional, lenta pero inevitable.",
   },
 };
 
 /* =========================================================
-   DATOS — THOUGHT ORBS
+   DATOS — THOUGHT ORBS (Esferas de Habilidades)
    ========================================================= */
 const orbThoughts = {
   "first-kiss": {
@@ -58,7 +58,7 @@ const orbThoughts = {
     title: "El Primer Beso",
     color: "#c04a44",
     text:
-      "Su auto estacionado frente a tu casa de noche. Un impulso eléctrico incontrolable borró la distancia entre ambas. El primer beso que te dio no fue un evento planeado; fue una colisión inevitable.",
+      "El auto detenido frente a tu casa. El motor en silencio, las sombras de la noche contra el parabrisas. Una descarga sináptica ineludible que anuló la prudencia. No fue un acto calculado; fue una colisión electromagnética inevitadora.",
   },
 
   foosball: {
@@ -66,7 +66,7 @@ const orbThoughts = {
     title: "Metegol en Acatraz",
     color: "#c04a44",
     text:
-      "El sonido metálico de la pelota en Acatraz. Las estadísticas decían que no te ibas a dejar ganar, pero la victoria cayó del lado de ella. Un expediente que todavía te negás a revisar.",
+      "El impacto metálico de la bola rotando a velocidad terminal. Tu instinto te decía que no debías ceder terreno, pero la gravedad de la noche derivó la victoria hacia ella. Una derrota táctica que todavía te negás a archivar sin objeciones.",
   },
 
   "lemon-cake": {
@@ -74,7 +74,7 @@ const orbThoughts = {
     title: "El Budín de Limón",
     color: "#52aed6",
     text:
-      "Suministro táctico de azúcar enviado a UADE. El budín de limón casero que ella te llevó, diseñado para reducir tu estrés universitario en un 100%.",
+      "Suministro calórico de emergencia desplegado en las inmediaciones de UADE. Un pastel casero de citrato y azúcar formulado con precisión milimétrica para disolver el estrés académico e incrementar los niveles de serotonina en un 100%.",
   },
 
   "love-escape": {
@@ -82,7 +82,7 @@ const orbThoughts = {
     title: "El “Te quiero” a la fuga",
     color: "#52aed6",
     text:
-      "Le dijiste dos palabras en el auto y, antes de que ella pudiera procesarlo, abriste la puerta y saliste corriendo hacia la entrada. El impulso de tu sinceridad superó cualquier contención.",
+      "Pronunciaste dos palabras cruciales dentro del habitáculo y, antes de que el aire pudiera devolver el eco, abriste la puerta y huiste hacia la protección de la edificación. La velocidad de tu sinceridad superó la capacidad de contención de tu propio orgullo.",
   },
 
   "safe-place": {
@@ -90,7 +90,7 @@ const orbThoughts = {
     title: "Lugar seguro",
     color: "#a965c6",
     text:
-      "La cabeza de ella descansando sobre tu pecho en la penumbra de la noche, mientras la rodeabas con tus brazos. El ritmo de tus latidos convirtiéndose en el único sonido necesario para apagar el ruido del mundo.",
+      "Su frente descansando sobre tu tórax en la penumbra. El metrónomo constante de tus latidos sirvió como único pilar para disipar el caos del exterior y construir una fortaleza impenetrable de apenas un metro cuadrado.",
   },
 
   lomitas: {
@@ -98,7 +98,7 @@ const orbThoughts = {
     title: "Fotos en Las Lomitas",
     color: "#a965c6",
     text:
-      "Cuatro flashes dentro de una cabina pequeña en Las Lomitas. Las primeras fotos juntas impresas que capturaron el inicio del expediente.",
+      "Cuatro destellos de luz halógena aprisionados en la cabina fotosensible de Las Lomitas. La primera prueba documental impresa donde la química de dos miradas quedó registrada para la posteridad.",
   },
 };
 
@@ -114,13 +114,13 @@ const dialogueStages = [
         voice: "NARRADOR",
         cls: "narrator",
         text:
-          "La luz azulada del televisor ilumina la habitación en silencio. Afuera, la ciudad sigue su curso helado en la penumbra. Adentro, el aire está calmo. Están sentadas en el mismo sillón, separadas apenas por un par de centímetros. Un expediente no resuelto descansa sobre la mesa.",
+          "El resplandor catódico del televisor baña el recinto en un tono azul helado. Afuera, la metrópolis continúa su congelamiento silencioso. Adentro, el tiempo parece suspendido. Dos cuerpos comparten un mismo tapizado, separados tan solo por una brecha insignificante de aire. Un expediente inconcluso reposa sobre la superficie de la mesa.",
       },
       {
         voice: "ELECTROQUÍMICA",
         cls: "electro",
         text:
-          "Su hombro está apoyado contra el tuyo. La temperatura en ese punto de contacto es tres grados superior al resto del ambiente. Una anomalía térmica innegable.",
+          "Soplos de calidez. Su hombro se apoya levemente contra el tuyo. La microdinámica térmica en ese punto de contacto registra casi cuatro grados por encima de la media ambiental. Una anomalía física que tu piel se niega a ignorar.",
       },
     ],
   },
@@ -133,13 +133,13 @@ const dialogueStages = [
         voice: "EMPATÍA",
         cls: "empathy",
         text:
-          "La persona a tu lado no ha dicho una sola palabra en los últimos tres minutos, pero la forma en que acomoda la manta sobre tus piernas es un tratado entero sobre la confianza. No hay tensión en el aire, solo una pregunta flotando que nadie se ha atrevido a formular en voz alta.",
+          "No ha pronunciado una sola sílaba en varios minutos, pero la cadencia con la que acomoda el borde de la manta sobre tus piernas equivale a un tratado completo sobre el refugio y la pertenencia. La quietud no guarda incomodidad alguna; solo una certidumbre suspendida que aguarda ser articulada.",
       },
       {
         voice: "DRAMA",
         cls: "drama",
         text:
-          "Sire, la puesta en escena es impecable. El ambiente, la penumbra, el cansancio del día disipándose... Todos los elementos escénicos apuntan hacia una sola resolución dramática.",
+          "¡Aguardad, mi lord! La escenografía es magistral. Las penumbras calculadas, la tensión del día disipándose en el olvido... Todo el aparato dramático converge inexorablemente hacia un único y glorioso clímax.",
       },
     ],
   },
@@ -152,13 +152,13 @@ const dialogueStages = [
         voice: "LÓGICA [Éxito Crítico]",
         cls: "logic",
         text:
-          "Has analizado metódicamente las evidencias acumuladas en el archivo: el budín de limón llevado a la UADE, las risas descontroladas, los viajes nocturnos a Longchamps, el “te quiero” dicho a la fuga y la noche en que dormiste con su cabeza sobre tu pecho.",
+          "Has auditado sistemáticamente el material acumulado en el archivo: las provisiones de budín en la universidad, las risas desarticuladas en la noche, el vagabundeo vehicular hacia Longchamps, la confesión de afecto arrojada antes de huir y las horas de vigilia sosteniendo su cabeza sobre tu pecho.",
       },
       {
         voice: "LÓGICA",
         cls: "logic",
         text:
-          "Clasificar todo este volumen de datos bajo la etiqueta de “casualidad” o “amistad informal” es un error sistémico irrazonable. Estadísticamente, mantener este caso como “Pendiente” contradice la ley de causa y efecto.",
+          "Categorizar este volumen de eventos bajo el rotulo de 'azar' o 'afecto meramente circunstancial' constituye una negligencia analítica inaceptable. Mantener la etiqueta de 'Pendiente' desobedecería abiertamente las leyes elementales de la causa y el efecto.",
       },
     ],
   },
@@ -171,13 +171,13 @@ const dialogueStages = [
         voice: "RESISTENCIA",
         cls: "endurance",
         text:
-          "El universo tiene una tendencia natural hacia el caos y el frío. Sin embargo, el refugio que construyeron en este radio de tres metros cuadrados reduce a cero la inercia del invierno.",
+          "El mundo exterior es una tormenta de fricción y entropía. Sin embargo, este microcosmos erigido entre cuatro paredes ha logrado anular por completo la mordedura del frío. Es un bastión inexpugnable.",
       },
       {
         voice: "VOLICIÓN",
         cls: "volition",
         text:
-          "No hay más pruebas que reunir. La evidencia es aplastante y la persona a tu lado está esperando. Es el momento de romper la inercia.",
+          "Basta de recopilación de datos. El veredicto es indiscutible y la persona a tu lado aguarda el desenlace. Es el momento exacto para dar el paso definitivo.",
       },
     ],
   },
@@ -221,8 +221,6 @@ $("#character-continue").addEventListener("click", async () => {
 
 /* =========================================================
    TYPEWRITER
-   - 35 ms por carácter
-   - Clic sobre el bloque activo para completar el texto
    ========================================================= */
 async function typeText(element, text, speed = TYPE_SPEED) {
   element.textContent = "";
@@ -300,12 +298,12 @@ async function renderDialogueStage() {
   if (state.dialogueStep < dialogueStages.length - 1) {
     nextButton.innerHTML = `
       <span>1.</span>
-      <b>Continuar revisando el expediente.</b>
+      <b>Continuar examinando las pruebas del expediente.</b>
     `;
   } else {
     nextButton.innerHTML = `
       <span>1.</span>
-      <b>Pasar a la tirada de resolución.</b>
+      <b>Proceder a la prueba de resolución final.</b>
     `;
   }
 
@@ -439,8 +437,6 @@ $("#cassette-toggle").addEventListener("click", toggleCassette);
 
 /* =========================================================
    SKILL CHECK
-   Resultado visual forzado a ÉXITO CRÍTICO — 20/20.
-   Los dados son decorativos; la resolución narrativa está fijada.
    ========================================================= */
 $("#roll-button").addEventListener("click", () => {
   if (state.rolled) return;
@@ -455,7 +451,7 @@ $("#roll-button").addEventListener("click", () => {
   pair.classList.add("is-rolling");
 
   $("#roll-result").textContent =
-    "La última variable abandona el territorio de la teoría...";
+    "La última duda se disuelve en el aire...";
 
   let ticks = 0;
 
@@ -476,7 +472,7 @@ $("#roll-button").addEventListener("click", () => {
 
       $("#roll-result").innerHTML = `
         <strong>[ÉXITO CRÍTICO — 20/20]</strong>
-        <span>El expediente ya no admite otra conclusión racional.</span>
+        <span>La realidad cede. El expediente no permite otra interpretación.</span>
       `;
 
       setTimeout(() => {
