@@ -780,9 +780,12 @@ function resetMechanics() {
   Object.keys(state.taskStates).forEach(id => setTask(id, state.taskStates[id]));
 }
 
-$("#restart-button").addEventListener("click", () => {
-  resetMechanics();
-  showScreen("start");
+$("#restart-button").addEventListener("click", event => {
+  // El enlace ya funciona como respaldo incluso si JavaScript falla.
+  // Con JS activo, recargamos la página para restaurar absolutamente
+  // todo el estado del expediente desde cero.
+  event.preventDefault();
+  window.location.reload();
 });
 
 /* =========================================================

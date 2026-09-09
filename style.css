@@ -3818,3 +3818,14 @@ body[data-phase="warm"] .world {
   .thought-progress.is-running span { animation: none; }
   .thought-progress.is-running span { width: 100%; }
 }
+
+
+/* =========================================================
+   DE6 — REINICIO SEGURO
+   ========================================================= */
+.restart-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}

@@ -41,3 +41,7 @@ El HTML ya tiene `?v=de5` en CSS y JS para ayudar a evitar que GitHub Pages mues
 8. Continuar el diálogo con checks pasivos.
 9. Llegar a la tirada roja de Volición.
 10. Resolver el caso.
+
+
+## Corrección DE6 — reinicio
+El botón **“Revisar el expediente desde el inicio”** ahora funciona también como enlace de respaldo y, con JavaScript activo, recarga la página completa. Esto restablece todas las mecánicas, checks, pistas, tareas y pensamientos al estado inicial.
