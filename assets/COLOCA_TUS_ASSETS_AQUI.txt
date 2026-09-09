@@ -1,0 +1,4 @@
+Archivos esperados:
+- anto-portrait.png
+- cover.jpg (opcional)
+- ambient.mp3
