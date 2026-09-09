@@ -1,38 +1,23 @@
-# Expediente: anomalía pendiente de resolución
+# Expediente: anomalía pendiente de resolución — UI inspirada en Disco Elysium
 
-Proyecto listo para GitHub Pages.
+Esta versión mantiene la narrativa y la lógica del proyecto, pero rehace la jerarquía visual para acercarla mucho más a la interfaz de *Disco Elysium*.
 
-## Archivos principales
-- `index.html`
-- `style.css`
-- `script.js`
+## Tipografía
 
-## Assets que tenés que colocar dentro de `assets/`
+La interfaz real de *Disco Elysium* usa **Dobra Black** para el logo/header y **Sina Nova** para diálogo. Esas fuentes no se incluyen en este proyecto. El CSS las pone primero en la pila por si ya están instaladas y utiliza alternativas web gratuitas:
 
-### Retrato
-`assets/anto-portrait.png`
+- `Encode Sans Condensed` para títulos/UI.
+- `Libre Baskerville` para diálogo y prosa.
+- `IBM Plex Mono` para pequeños datos técnicos.
 
-Recomendado:
-- orientación vertical
-- relación aproximada 4:5
-- retrato al óleo / expresionista
+## Assets
 
-### Imagen de portada opcional
-`assets/cover.jpg`
+Colocá dentro de `assets/`:
 
-Si no existe, el fondo de gradientes CSS sigue funcionando.
-
-### Canción local
-`assets/ambient.mp3`
-
-El reproductor de cassette usa ese archivo en loop.
+- `anto-portrait.png` — retrato vertical de Anto.
+- `cover.jpg` — imagen pictórica opcional de portada/fondo.
+- `ambient.mp3` — canción local del cassette.
 
 ## GitHub Pages
-Subí a la raíz:
-- index.html
-- style.css
-- script.js
-- carpeta assets/
 
-Después:
-Settings → Pages → Deploy from a branch → main → /(root)
+Subí `index.html`, `style.css`, `script.js` y la carpeta `assets/` a la raíz del repositorio.
