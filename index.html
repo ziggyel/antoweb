@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Caslon+Text:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=4" />
+  <link rel="stylesheet" href="style.css?v=8" />
 </head>
 <body>
   <div class="world-bg" aria-hidden="true">
@@ -18,6 +18,18 @@
     <div class="world-bg__grain"></div>
     <div class="world-bg__vignette"></div>
   </div>
+
+  <div class="paint-scratches" aria-hidden="true"></div>
+  <div id="case-meta" class="case-meta is-hidden" aria-hidden="true">
+    <span>Distrito 41 · archivo privado</span>
+    <strong id="case-location">Interior — sala</strong>
+    <small>Noche · señal estable</small>
+  </div>
+  <div id="objective-strip" class="objective-strip is-hidden" aria-live="polite">
+    <span>Objetivo actual</span>
+    <b id="objective-text">Reconstruir la identidad</b>
+  </div>
+  <div id="screen-mark" class="screen-mark is-hidden" aria-hidden="true">41</div>
 
   <section id="loading-screen" class="loading-screen" aria-label="Pantalla de carga">
     <div class="loading-screen__inner">
@@ -58,27 +70,48 @@
       <button id="record-close" class="icon-btn" type="button" aria-label="Cerrar el Registro">×</button>
     </div>
     <div class="evidence-grid">
-      <article class="evidence-card">
+      <article class="evidence-card" data-bark="Evidencia incontestable.">
         <span class="evidence-card__index">01</span>
         <h3>Entradas de cine para Lady Bird</h3>
         <p>Fantasmas de luz proyectados sobre una sábana blanca. El mundo exterior se disolvía a cero grados, pero en la penumbra, la fricción de sus manos era la única masa sólida en el espacio.</p>
       </article>
-      <article class="evidence-card">
+      <article class="evidence-card" data-bark="Evidencia incontestable.">
         <span class="evidence-card__index">02</span>
         <h3>Rollos de canela</h3>
         <p>Materia dulce y densa. Un pequeño bastión de carbohidratos erigido contra la inercia del frío.</p>
       </article>
-      <article class="evidence-card">
+      <article class="evidence-card" data-bark="Evidencia incontestable.">
         <span class="evidence-card__index">03</span>
         <h3>Pelota de metegol</h3>
         <p>Un orbe de plástico desgastado. Almacena la reverberación sorda de risas caóticas que hicieron temblar las paredes.</p>
       </article>
-      <article class="evidence-card">
+      <article class="evidence-card" data-bark="Evidencia incontestable.">
         <span class="evidence-card__index">04</span>
         <h3>Foto “cursed” de la cabina de fotos</h3>
         <p>Química fotográfica congelando dos rostros deformados por la risa. Una anomalía que desafía la lógica.</p>
       </article>
     </div>
+
+    <section class="equipment-panel" aria-label="Equipamiento activo">
+      <div class="equipment-panel__heading">
+        <span>Ranuras de personaje</span>
+        <h3>Equipamiento Activo</h3>
+      </div>
+      <div class="equipment-grid">
+        <article class="equipment-item">
+          <span class="equipment-item__icon equipment-item__icon--head" aria-hidden="true">◉</span>
+          <div><small>Cabeza</small><strong>Gorro de pensamientos ruidosos</strong><em>+1 Imperio Interior</em></div>
+        </article>
+        <article class="equipment-item">
+          <span class="equipment-item__icon equipment-item__icon--body" aria-hidden="true">◇</span>
+          <div><small>Cuerpo</small><strong>Chaqueta de abrazo blindado</strong><em>+3 Voluntad contra el frío</em></div>
+        </article>
+        <article class="equipment-item">
+          <span class="equipment-item__icon equipment-item__icon--feet" aria-hidden="true">↯</span>
+          <div><small>Calzado</small><strong>Zapatillas de baile improvisado</strong><em>+2 Electroquímica</em></div>
+        </article>
+      </div>
+    </section>
   </aside>
   <button id="record-backdrop" class="record-backdrop" type="button" aria-label="Cerrar panel"></button>
 
@@ -98,6 +131,7 @@
 
       <div class="character-grid">
         <button class="character-card locked" type="button" data-locked-character>
+          <span class="character-card__number" aria-hidden="true">01</span>
           <div class="portrait portrait--logic" aria-hidden="true"><span></span></div>
           <div class="character-card__body">
             <p class="character-card__role">Arquetipo incompleto</p>
@@ -108,6 +142,7 @@
         </button>
 
         <button class="character-card locked" type="button" data-locked-character>
+          <span class="character-card__number" aria-hidden="true">02</span>
           <div class="portrait portrait--shivers" aria-hidden="true"><span></span></div>
           <div class="character-card__body">
             <p class="character-card__role">Arquetipo incompleto</p>
@@ -117,7 +152,8 @@
           </div>
         </button>
 
-        <button id="antowoo-card" class="character-card character-card--anto" type="button">
+        <button id="antowoo-card" class="character-card character-card--anto" type="button" data-bark="Atención concentrada a 1000 RPM.">
+          <span class="character-card__number" aria-hidden="true">03</span>
           <div class="portrait portrait--anto">
             <img src="assets/anto.png" alt="Retrato de Anto" />
             <span class="paint-wash" aria-hidden="true"></span>
@@ -139,11 +175,19 @@
 
     <section id="thought-screen" class="screen thought-screen is-hidden" data-screen>
       <div class="cabinet-shell">
-        <div class="cabinet-title">
-          <p class="eyebrow">Gabinete de pensamientos</p>
-          <h1>El patrón de la masa compartida</h1>
-        </div>
-        <div class="thought-layout">
+        <aside class="thought-index" aria-label="Índice de pensamientos">
+          <p>Gabinete</p>
+          <button class="thought-slot active" type="button"><span>01</span><b>El patrón de la masa compartida</b><small>Internalizando</small></button>
+          <button class="thought-slot locked" type="button" disabled><span>02</span><b>El invierno en zona sur</b><small>Bloqueado</small></button>
+          <button class="thought-slot locked" type="button" disabled><span>03</span><b>Rituales de carbohidratos</b><small>Bloqueado</small></button>
+          <button class="thought-slot locked" type="button" disabled><span>04</span><b>La anomalía de la cabina</b><small>Bloqueado</small></button>
+        </aside>
+        <div class="cabinet-main">
+          <div class="cabinet-title">
+            <p class="eyebrow">Gabinete de pensamientos</p>
+            <h1>El patrón de la masa compartida</h1>
+          </div>
+          <div class="thought-layout">
           <div class="thought-orbit" aria-hidden="true">
             <div class="thought-core"><span>?</span></div>
             <i></i><i></i><i></i>
@@ -164,12 +208,23 @@
             </div>
             <button id="thought-continue" class="text-button is-hidden" type="button">Abrir el diálogo</button>
           </article>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="dialogue-screen" class="screen dialogue-screen is-hidden" data-screen>
       <div class="dialogue-layout">
+        <div class="thought-orbs" aria-label="Pensamientos disponibles">
+          <button class="thought-orb thought-orb--logic" type="button" data-orb="logic" aria-label="Escuchar a Lógica">
+            <span class="thought-orb__core" aria-hidden="true"></span>
+            <span class="thought-orb__label">Lógica</span>
+          </button>
+          <button class="thought-orb thought-orb--inland" type="button" data-orb="inland" aria-label="Escuchar a Imperio Interior">
+            <span class="thought-orb__core" aria-hidden="true"></span>
+            <span class="thought-orb__label">Imperio Interior</span>
+          </button>
+        </div>
         <aside class="scene-card" aria-hidden="true">
           <div class="scene-card__room">
             <div class="window-glow"></div>
@@ -177,10 +232,12 @@
             <div class="pet pet--dog"></div>
             <div class="pet pet--cat"></div>
           </div>
+          <div class="scene-card__meta"><span>INTERIOR / 23:47</span><b>La sala</b></div>
           <p>Una sala. Un sillón verde. Dos animales dormidos. La ciudad insistiendo al otro lado del vidrio.</p>
         </aside>
 
         <div class="dialogue-panel">
+          <div class="dialogue-panel__header"><span>Conversación</span><b>Señal 04 · estable</b></div>
           <div id="dialogue-log" class="dialogue-log" aria-live="polite"></div>
           <div id="dialogue-options" class="dialogue-options"></div>
           <div id="skill-check" class="skill-check is-hidden">
@@ -201,6 +258,7 @@
 
     <section id="final-screen" class="screen final-screen is-hidden" data-screen>
       <div class="final-card">
+        <span class="final-card__stamp" aria-hidden="true">41</span>
         <div class="dialogue-entry narrator">
           <span class="voice">NARRADOR</span>
           <p>El archivo se cierra sobre la mesa. Ya no hay más hipótesis que comprobar ni más variables que medir. La persona a tu lado se gira hacia ti y formula la pregunta final:</p>
@@ -227,22 +285,40 @@
         <button id="restart-btn" class="text-button" type="button">Volver a abrir el archivo</button>
       </div>
       <div id="achievement" class="achievement" role="status" aria-live="polite">
-        <div class="achievement__icon">★</div>
-        <div>
-          <small>Logro desbloqueado</small>
-          <strong>Compañera oficial</strong>
+        <div class="achievement__shine" aria-hidden="true"></div>
+        <div class="achievement__icon" aria-hidden="true"><span>★</span></div>
+        <div class="achievement__copy">
+          <small>Notificación de logro</small>
+          <strong>Logro Desbloqueado: La masa compartida</strong>
+          <p>100% de los jugadores eligieron este destino.</p>
         </div>
       </div>
     </section>
   </main>
 
-  <div id="cassette" class="cassette is-hidden" aria-label="Reproductor de ambiente musical">
+  <div id="cassette" class="cassette is-hidden" aria-label="Reproductor de ambiente musical" data-bark="Transmitiendo en baja frecuencia...">
     <button id="audio-toggle" class="cassette__toggle" type="button" aria-pressed="false" aria-label="Reproducir música ambiental">
       <span class="reel reel--left"></span><span class="reel reel--right"></span>
       <b id="audio-label">Cinta 01 — silencio</b>
     </button>
   </div>
 
-  <script src="script.js?v=5"></script>
+  <div id="bark" class="bark" role="status" aria-live="polite" aria-hidden="true"></div>
+
+  <div id="orb-modal" class="orb-modal" aria-hidden="true">
+    <button id="orb-modal-backdrop" class="orb-modal__backdrop" type="button" aria-label="Cerrar pensamiento"></button>
+    <article class="orb-modal__card" role="dialog" aria-modal="true" aria-labelledby="orb-modal-voice">
+      <div class="orb-modal__sigil" aria-hidden="true"><span></span></div>
+      <div class="orb-modal__content">
+        <div class="orb-modal__heading">
+          <span id="orb-modal-voice">LÓGICA</span>
+          <button id="orb-modal-close" type="button" aria-label="Cerrar pensamiento">×</button>
+        </div>
+        <p id="orb-modal-text"></p>
+      </div>
+    </article>
+  </div>
+
+  <script src="script.js?v=8"></script>
 </body>
 </html>

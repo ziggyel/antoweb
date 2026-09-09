@@ -20,6 +20,25 @@ const screens = {
   success: $("#success-screen"),
 };
 
+const screenUi = {
+  character: { objective: "Reconstruir la identidad", location: "Archivo — selección de perfil" },
+  thought: { objective: "Internalizar el patrón", location: "Gabinete de pensamientos" },
+  dialogue: { objective: "Seguir la señal hasta su origen", location: "Interior — la sala" },
+  final: { objective: "Responder la única pregunta restante", location: "Interior — a centímetros" },
+  success: { objective: "Caminar hacia lo que sigue", location: "Caso cerrado" },
+};
+
+const orbThoughts = {
+  logic: {
+    voice: "LÓGICA",
+    text: "Dato: El ritmo cardíaco de la persona a tu lado aumentó cuando se sentaron juntas.",
+  },
+  inland: {
+    voice: "IMPERIO INTERIOR",
+    text: "La luz del televisor parpadea en un código morse que solo ustedes dos entienden.",
+  },
+};
+
 const introLines = [
   {
     voice: "NARRADOR",
@@ -104,12 +123,24 @@ function showScreen(name) {
     element.classList.toggle("is-hidden", key !== name);
   });
   state.screen = name;
+  $("#bark")?.classList.remove("is-visible");
+  $("#bark")?.setAttribute("aria-hidden", "true");
+  if (name !== "dialogue") closeOrbModal();
+  if (screenUi[name]) {
+    const objective = $("#objective-text");
+    const location = $("#case-location");
+    if (objective) objective.textContent = screenUi[name].objective;
+    if (location) location.textContent = screenUi[name].location;
+  }
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function revealGameChrome() {
   $("#hud").classList.remove("is-hidden");
   $("#cassette").classList.remove("is-hidden");
+  $("#case-meta")?.classList.remove("is-hidden");
+  $("#objective-strip")?.classList.remove("is-hidden");
+  $("#screen-mark")?.classList.remove("is-hidden");
 }
 
 function triggerWillpower() {
@@ -259,8 +290,116 @@ function closeRecord() {
   $("#record-btn").setAttribute("aria-expanded", "false");
 }
 
+function openOrbModal(key) {
+  const thought = orbThoughts[key];
+  const modal = $("#orb-modal");
+  if (!thought || !modal) return;
+
+  modal.dataset.tone = key;
+  $("#orb-modal-voice").textContent = thought.voice;
+  $("#orb-modal-text").textContent = thought.text;
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+  setTimeout(() => $("#orb-modal-close")?.focus({ preventScroll: true }), 20);
+}
+
+function closeOrbModal() {
+  const modal = $("#orb-modal");
+  if (!modal) return;
+  modal.classList.remove("is-open");
+  modal.setAttribute("aria-hidden", "true");
+}
+
+function setupBarks() {
+  const bark = $("#bark");
+  if (!bark) return;
+
+  let activeTarget = null;
+  let barkTimer = null;
+
+  const placeBark = target => {
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    const x = Math.min(window.innerWidth - 18, Math.max(18, rect.left + rect.width / 2));
+    const y = Math.max(44, rect.top);
+    bark.style.left = `${x}px`;
+    bark.style.top = `${y}px`;
+  };
+
+  const showBark = target => {
+    const text = target.dataset.bark;
+    if (!text) return;
+    activeTarget = target;
+    bark.textContent = text;
+    bark.setAttribute("aria-hidden", "false");
+    placeBark(target);
+    bark.classList.add("is-visible");
+    window.clearTimeout(barkTimer);
+    barkTimer = window.setTimeout(() => hideBark(target), 1800);
+  };
+
+  const hideBark = target => {
+    if (target && activeTarget !== target) return;
+    window.clearTimeout(barkTimer);
+    bark.classList.remove("is-visible");
+    bark.setAttribute("aria-hidden", "true");
+    activeTarget = null;
+  };
+
+  $$('[data-bark]').forEach(target => {
+    target.addEventListener("pointerenter", () => showBark(target));
+    target.addEventListener("pointerleave", () => hideBark(target));
+    target.addEventListener("focusin", () => showBark(target));
+    target.addEventListener("focusout", () => hideBark(target));
+  });
+
+  window.addEventListener("scroll", () => {
+    if (activeTarget) placeBark(activeTarget);
+  }, { passive: true });
+  window.addEventListener("resize", () => {
+    if (activeTarget) placeBark(activeTarget);
+  });
+}
+
 function midiToHz(note) {
   return 440 * Math.pow(2, (note - 69) / 12);
+}
+
+function playCassetteClick(ctx) {
+  // Chasquido puramente sintético: dos transitorios cortos, sin ruido blanco.
+  const now = ctx.currentTime;
+  const out = ctx.createGain();
+  const filter = ctx.createBiquadFilter();
+  filter.type = "bandpass";
+  filter.frequency.value = 820;
+  filter.Q.value = 0.9;
+  out.gain.value = 0.38;
+  filter.connect(out);
+  out.connect(ctx.destination);
+
+  const snap = ctx.createOscillator();
+  const snapGain = ctx.createGain();
+  snap.type = "square";
+  snap.frequency.setValueAtTime(1200, now);
+  snap.frequency.exponentialRampToValueAtTime(260, now + 0.026);
+  snapGain.gain.setValueAtTime(0.0001, now);
+  snapGain.gain.exponentialRampToValueAtTime(0.19, now + 0.002);
+  snapGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.042);
+  snap.connect(snapGain).connect(filter);
+  snap.start(now);
+  snap.stop(now + 0.05);
+
+  const clunk = ctx.createOscillator();
+  const clunkGain = ctx.createGain();
+  clunk.type = "triangle";
+  clunk.frequency.setValueAtTime(155, now + 0.018);
+  clunk.frequency.exponentialRampToValueAtTime(86, now + 0.075);
+  clunkGain.gain.setValueAtTime(0.0001, now + 0.018);
+  clunkGain.gain.exponentialRampToValueAtTime(0.15, now + 0.024);
+  clunkGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+  clunk.connect(clunkGain).connect(filter);
+  clunk.start(now + 0.018);
+  clunk.stop(now + 0.1);
 }
 
 function createAmbientAudio() {
@@ -439,7 +578,9 @@ async function toggleAudio() {
     await state.audio.ctx.resume();
   }
 
-  state.audioOn = !state.audioOn;
+  const turningOn = !state.audioOn;
+  if (turningOn) playCassetteClick(state.audio.ctx);
+  state.audioOn = turningOn;
 
   const now = state.audio.ctx.currentTime;
   const masterGain = state.audio.master.gain;
@@ -456,12 +597,13 @@ async function toggleAudio() {
     state.audioOn ? "Pausar música ambiental" : "Reproducir música ambiental"
   );
   $("#audio-label").textContent = state.audioOn
-    ? "Cinta 01 — nocturno en re menor"
+    ? "Cinta 01 — nocturno cálido / señal estable"
     : "Cinta 01 — silencio";
 }
 
 function resetExperience() {
   closeRecord();
+  closeOrbModal();
   state.visited.clear();
   state.rolled = false;
   state.dialogueBusy = false;
@@ -527,6 +669,11 @@ $("#thought-continue").addEventListener("click", () => {
 
 // Dialogue / check
 $("#roll-btn").addEventListener("click", rollDice);
+$$('[data-orb]').forEach(orb => {
+  orb.addEventListener("click", () => openOrbModal(orb.dataset.orb));
+});
+$("#orb-modal-close").addEventListener("click", closeOrbModal);
+$("#orb-modal-backdrop").addEventListener("click", closeOrbModal);
 
 // Final question
 $$(".final-choice").forEach(button => {
@@ -544,10 +691,12 @@ $("#record-backdrop").addEventListener("click", closeRecord);
 $("#exit-btn").addEventListener("click", triggerWillpower);
 $("#audio-toggle").addEventListener("click", toggleAudio);
 $("#restart-btn").addEventListener("click", resetExperience);
+setupBarks();
 
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") {
-    if ($("#record-panel").classList.contains("is-open")) closeRecord();
+    if ($("#orb-modal")?.classList.contains("is-open")) closeOrbModal();
+    else if ($("#record-panel").classList.contains("is-open")) closeRecord();
     else if (state.screen !== "loading" && state.screen !== "success") triggerWillpower();
   }
 });
