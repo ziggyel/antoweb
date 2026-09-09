@@ -21,3 +21,7 @@ Colocá dentro de `assets/`:
 ## GitHub Pages
 
 Subí `index.html`, `style.css`, `script.js` y la carpeta `assets/` a la raíz del repositorio.
+
+
+## Ilustración del living
+`assets/living.png` es la imagen usada en la escena de diálogo. Para cambiarla, reemplazá ese archivo manteniendo el mismo nombre.

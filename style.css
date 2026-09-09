@@ -3172,3 +3172,67 @@ body[data-phase="warm"] .world {
     bottom: 68px;
   }
 }
+
+
+/* ========================================================================
+   ESCENA DEL LIVING — ILUSTRACIÓN PICTÓRICA REAL
+   Reemplaza la maqueta CSS anterior por assets/living.png.
+   ======================================================================== */
+.scene-panel__image {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #080b0d;
+  filter: none;
+}
+
+.scene-panel__art {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  /* Mantiene visibles el sillón y las dos figuras dentro del recorte panorámico. */
+  object-position: 50% 64%;
+  filter: saturate(.78) contrast(1.08) brightness(.79);
+  transform: scale(1.012);
+}
+
+/* Veladura fría + viñeta para fundir la pintura con la interfaz. */
+.scene-panel__image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 45% 48%, transparent 42%, rgba(0,0,0,.14) 70%, rgba(0,0,0,.42) 100%),
+    linear-gradient(90deg, rgba(5,9,11,.07), transparent 38%, transparent 67%, rgba(4,6,7,.46)),
+    linear-gradient(180deg, rgba(16,31,37,.09), transparent 46%, rgba(5,7,8,.26));
+  box-shadow: inset 0 0 72px rgba(0,0,0,.30);
+}
+
+/* Una textura muy sutil por encima para que no parezca una imagen pegada. */
+.scene-panel__image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: .23;
+  background:
+    repeating-linear-gradient(113deg, transparent 0 23px, rgba(211,160,66,.022) 24px 25px, transparent 26px 43px),
+    repeating-linear-gradient(2deg, transparent 0 52px, rgba(255,255,255,.012) 53px 54px);
+  mix-blend-mode: soft-light;
+}
+
+@media (max-width: 1020px) {
+  .scene-panel__art {
+    object-position: 50% 69%;
+  }
+}
+
+@media (max-width: 760px) {
+  .scene-panel__art {
+    object-position: 50% 72%;
+  }
+}
