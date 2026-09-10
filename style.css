@@ -3245,7 +3245,7 @@ body[data-phase="warm"] .world {
 /* ---------- HUD / TAREAS ---------- */
 .tasks-panel {
   position: fixed;
-  z-index: 91;
+  z-index: 105;
   top: 0;
   right: 0;
   width: min(480px, 92vw);
