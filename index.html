@@ -18,7 +18,7 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="style.css?v=de6" />
+  <link rel="stylesheet" href="style.css?v=de7" />
 </head>
 
 <body data-phase="cold" data-step="start">
@@ -306,7 +306,8 @@
           <h1>EXPEDIENTE:<br>ANOMALÍA PENDIENTE DE RESOLUCIÓN</h1>
 
           <p class="start-copy__question">
-          ¿Por qué, si todas las combinaciones de dudas ya se jugaron y los átomos no nos permiten estar en otro lugar, este caso sigue figurando sin resolver?
+            ¿Por qué, con todas las pruebas irrefutables de amor que existen
+            entre ambas, todavía no son novias?
           </p>
 
           <button id="review-button" class="primary-button" type="button">
@@ -360,15 +361,19 @@
         </div>
 
         <div class="character-sheet__body">
-          <p class="eyebrow">Diagnóstico</p>
+          <p class="eyebrow">Ficha del personaje</p>
 
           <h2>Sujeto confirmado</h2>
 
+          <p class="eyebrow character-sheet__skill-label">Diagnóstico — Volición</p>
+
           <p class="character-sheet__diagnosis">
-            Paredes firmes en el exterior que ceden ante la confianza.
-            Por dentro, un gabinete de pensamientos caóticos y estallidos
-            de música. En la penumbra adecuada, tu forma de habitar el mundo
-            se reduce a la risa, el baile y la necesidad física de un abrazo.
+            Sujeto con un protocolo inicial de timidez, pero es solo la primera capa antes de la entrega total.
+            Años de estruendo y miedos pasados intentaron convencerte de mantener la distancia, pero tus ojos te
+            traicionan: hay una belleza y una certeza en ellos que no pueden fingirse. Poseés un humor que desarma
+            cualquier tormenta y una necesidad elemental de cercanía. No permitas que el registro de viejos errores
+            dirija esta escena: tu arquitectura está intacta, tenés todo el derecho del mundo a dejarte cuidar y,
+            sobre todo, entendé algo fundamental... <strong>este lugar es seguro. Ya no tenés que seguir huyendo del amor.</strong>
           </p>
 
           <div class="character-stats" aria-label="Estadísticas de Antowoo">
@@ -376,12 +381,83 @@
             <div><span>Imperio interior</span><b>5/5</b></div>
             <div><span>Volición</span><b>5/5</b></div>
           </div>
-
-          <button id="character-continue" class="primary-button" type="button">
-            Abrir el expediente
-          </button>
         </div>
       </article>
+
+      <article class="kim-field-report" aria-labelledby="kim-report-title">
+        <div class="kim-field-report__media">
+          <div class="kim-field-report__portrait-wrap">
+            <img
+              src="https://images.igdb.com/igdb/image/upload/t_cover_big/co1x4n.png"
+              alt="Teniente Kim Kitsuragi"
+              class="kim-field-report__portrait"
+            />
+            <span class="kim-field-report__portrait-code">TTE. KITSURAGI / 41-B</span>
+          </div>
+
+          <div class="kim-field-report__stamp" aria-hidden="true">
+            <span>ANEXO</span>
+            <b>41-B</b>
+          </div>
+        </div>
+
+        <div class="kim-field-report__body">
+          <header class="kim-field-report__header">
+            <p>FICHA DE CAMPO / ARCHIVO ANEXADO</p>
+            <h2 id="kim-report-title">[DOCUMENTO ADJUNTO NO. 41-B — NOTAS DE CAMPO DEL TTE. KITSURAGI]</h2>
+          </header>
+
+          <p class="kim-field-report__notebook">Anotado en el libretero:</p>
+
+          <ol class="kim-field-report__notes">
+            <li>
+              <strong>Evidencia de afinidad:</strong>
+              Se ha detectado la presencia de un modelo a escala/figurina de este teniente en el área del sujeto.
+              Afirma tenerle un aprecio particular. El dato carece de relevancia para la investigación policial,
+              pero se registra en el archivo.
+            </li>
+            <li>
+              <strong>Hábitos de esparcimiento:</strong>
+              Alta inclinación por los sistemas de entretenimiento interactivo y los juegos digitales. Muestra además
+              un marcado entusiasmo por el baile y la actividad festiva; suele convertirse, de forma involuntaria,
+              en el centro de gravedad social del entorno.
+            </li>
+            <li>
+              <strong>Análisis conductual y vocal:</strong>
+              Ha participado en sesiones de karaoke. Las métricas de afinación vocal son objetivamente deficientes,
+              pero el nivel de ejecución compensa cualquier desviación técnica. El sujeto simplemente busca pasarla bien.
+            </li>
+            <li>
+              <strong>Preferencia nutricional de confort:</strong>
+              El sujeto muestra una debilidad documentada por la repostería especiada, específicamente los rolls de canela.
+              Se sugiere utilizar esta información con fines de pacificación o diplomacia.
+            </li>
+            <li>
+              <strong>Evaluación de perfil y autopercepción:</strong>
+              El sujeto sostiene la teoría de que es una mala persona y mantiene una sospecha inicial hacia los demás.
+              La evidencia desmiente categóricamente su propia hipótesis: experimenta una densidad emocional desmedida
+              (siente demasiado) y posee una bondad genuina. Su lenguaje primario ante la confianza incluye el uso de
+              abrazos prolongados.
+            </li>
+          </ol>
+
+          <section class="kim-field-report__conclusion">
+            <span>CONCLUSIÓN DEL TENIENTE</span>
+            <p>
+              El sujeto juzga su propio valor con una severidad injustificada. Las pruebas reunidas en este cuaderno
+              demuestran que es una presencia luminosa, afectuosa y fundamental para el equilibrio del ambiente.
+              Recomiendo proceder con el cierre del expediente y asegurar su bienestar.
+            </p>
+            <div class="kim-field-report__signature">— K. Kitsuragi</div>
+          </section>
+        </div>
+      </article>
+
+      <div class="character-actions">
+        <button id="character-continue" class="primary-button" type="button">
+          Abrir el expediente
+        </button>
+      </div>
     </section>
 
     <!-- =======================================================
@@ -653,6 +729,6 @@
 
   </main>
 
-  <script src="script.js?v=de6"></script>
+  <script src="script.js?v=de7"></script>
 </body>
 </html>

@@ -45,3 +45,9 @@ El HTML ya tiene `?v=de5` en CSS y JS para ayudar a evitar que GitHub Pages mues
 
 ## Corrección DE6 — reinicio
 El botón **“Revisar el expediente desde el inicio”** ahora funciona también como enlace de respaldo y, con JavaScript activo, recarga la página completa. Esto restablece todas las mecánicas, checks, pistas, tareas y pensamientos al estado inicial.
+
+## Actualización — Volición + Anexo 41-B
+
+- El diagnóstico del sujeto fue reemplazado por la nueva lectura de **Volición**, con énfasis en el cierre sobre seguridad y cuidado.
+- La ficha del personaje incorpora un bloque visualmente separado: **Documento adjunto 41-B — Notas de campo del Tte. Kitsuragi**.
+- La imagen de Kim se carga desde la URL indicada en el HTML.
