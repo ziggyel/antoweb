@@ -725,10 +725,88 @@ $("#roll-button").addEventListener("click", () => {
 /* =========================================================
    RESOLUCIÓN
    ========================================================= */
-$("#accept-button").addEventListener("click", () => {
-  setTask("resolve", "complete");
+$("#accept-button").addEventListener("click", async () => {
+  const proposalWrap = $("#proposal-wrap");
+  const acceptButton = $("#accept-button");
+
+  acceptButton.disabled = true;
+
+  const response = document.createElement("div");
+  response.className = "final-response-sequence";
+
+  response.innerHTML = `
+    <article class="dialogue-entry volition">
+      <span class="voice">VOLICIÓN [Éxito]</span>
+      <p>
+        Ahí está. Una palabra diminuta esperando del otro lado de todo este esfuerzo.
+        No exige valentía heroica. No pide que seas una persona distinta.
+        Solo que, por una vez, no retrocedas frente a algo bueno cuando finalmente llega hasta vos.
+      </p>
+    </article>
+
+    <article class="dialogue-entry empathy">
+      <span class="voice">EMPATÍA [Éxito]</span>
+      <p>
+        Ella está esperando.
+        Hace un instante tenía las manos inquietas. Los ojos buscando cualquier lugar donde descansar salvo en vos.
+        Ahora no puede hacer nada más. Ya mostró sus cartas y las dejó boca arriba sobre la mesa.
+        Qué situación espantosa.
+        Qué suerte.
+      </p>
+    </article>
+
+    <article class="dialogue-entry empathy">
+      <span class="voice">IMPERIO INTERIOR</span>
+      <p>
+        Pensá en la cantidad absurda de cosas que tuvieron que pasar para llegar a este sillón.
+        Tener una cita bajo el nombre prudente de “salida de amigas”.
+        Ganarle en el pool. Comer hamburguesas dentro del auto.
+        Besarse con esa timidez ridícula que vuelve importante hasta dónde poner las manos.
+        Dormir abrazadas. Soportar a su perro insoportable.
+        Invitarla a tu cumpleaños mientras, en algún rincón de tu cabeza,
+        esperabas desesperadamente que todo saliera bien.
+        Ninguna de esas cosas parecía estar construyendo una respuesta.
+        El mundo tiene métodos extraños para construir algo.
+      </p>
+    </article>
+
+    <article class="dialogue-entry narrator">
+      <span class="voice">NARRADOR</span>
+      <p>
+        La televisión continúa encendida. Afuera pasa un auto.
+        En algún lugar de Buenos Aires alguien pierde un colectivo,
+        alguien llega tarde, alguien está diciendo una cosa de la que se va a arrepentir mañana.
+        Nada de eso entra acá.
+        Abrís la boca.
+        —Sí.
+        Es ridículo lo poco que pesa la palabra al salir.
+        Después de todo lo que cargaba.
+      </p>
+    </article>
+
+    <article class="dialogue-entry empathy">
+      <span class="voice">EMPATÍA [Formidable: Éxito]</span>
+      <p>
+        Mirala.
+        Eso que acaba de desaparecer de su cara era miedo.
+      </p>
+    </article>
+  `;
+
+  proposalWrap.appendChild(response);
+
+  response.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+  await wait(7500);
+
   showScreen("success");
-  setTimeout(() => $("#achievement").classList.add("is-visible"), 420);
+
+  setTimeout(() => {
+    $("#achievement").classList.add("is-visible");
+  }, 420);
 });
 
 /* =========================================================
