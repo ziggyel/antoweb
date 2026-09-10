@@ -113,7 +113,7 @@ const sceneClues = {
     title: "Ella",
     color: "#b78aa6",
     text: "Hace poco era una desconocida. Ahora parece haberse quedado demasiado cerca como para volver a serlo. Casi nunca te mira; hoy sí. Sus manos inquietas y la insistencia de sus ojos dicen lo mismo: alguna decisión lleva rato rondándole la cabeza. Y por primera vez parece más asustada de no tomarla que de hacerlo.",
-    passive: "Un gesto mínimo puede ser una forma de cuidado completa.",
+    passive: "“Esto es casual”, diría usualmente. Una coartada bastante pobre para alguien que está hasta las manos. Hoy no bromea. Sabe la verdad.",
   },
   television: {
     skill: "ENCICLOPEDIA [Trivial: Éxito]",
