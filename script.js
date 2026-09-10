@@ -855,6 +855,10 @@ function resetMechanics() {
   $("#proposal-wrap").classList.add("is-hidden");
   $("#achievement").classList.remove("is-visible");
 
+   /* Reinicia la respuesta final */
+$(".final-response-sequence")?.remove();
+$("#accept-button").disabled = false;
+   
   Object.keys(state.taskStates).forEach(id => setTask(id, state.taskStates[id]));
 }
 
