@@ -105,14 +105,14 @@ const sceneClues = {
     skill: "PERCEPCIÓN [Medio: Éxito]",
     title: "El sillón verde",
     color: "#73a6b6",
-    text: "Las marcas del uso están en los lugares exactos donde suelen sentarse. Ninguna de las dos parece haber negociado ese espacio. Se volvió costumbre antes de volverse evidencia.",
+    text: "Las marcas del uso están en los lugares exactos donde suelen sentarse. Dos marcas en los almohadones, una manta y una distancia que cada noche necesita menos espacio. El mueble no tiene opinión sobre el asunto. La evidencia que acumula, en cambio, empieza a ser indecente.",
     passive: "Dos huecos en el mismo sillón. La distancia entre ellos se hizo más chica con el tiempo.",
   },
   blanket: {
     skill: "EMPATÍA [Fácil: Éxito]",
-    title: "La manta",
+    title: "Ella",
     color: "#b78aa6",
-    text: "No recordás cuándo empezó a compartirla con vos. Ahora levantar una esquina para dejarla entrar parece un movimiento aprendido hace años.",
+    text: "Hace poco era una desconocida. Ahora parece haberse quedado demasiado cerca como para volver a serlo. Casi nunca te mira; hoy sí. Sus manos inquietas y la insistencia de sus ojos dicen lo mismo: alguna decisión lleva rato rondándole la cabeza. Y por primera vez parece más asustada de no tomarla que de hacerlo.",
     passive: "Un gesto mínimo puede ser una forma de cuidado completa.",
   },
   television: {
