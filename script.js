@@ -303,6 +303,27 @@ $("#character-continue").addEventListener("click", async () => {
 /* =========================================================
    TYPEWRITER
    ========================================================= */
+function keepActiveDialogueInView(element, behavior = "auto", force = false) {
+  if (!element) return;
+
+  const rect = element.getBoundingClientRect();
+  const viewportHeight = window.innerHeight;
+  const lowerComfortLine = viewportHeight * 0.72;
+
+  // El texto nuevo nace en la parte inferior del bloque. Mientras se escribe,
+  // acompañamos ese borde para que permanezca en una zona cómoda de lectura.
+  if (!force && rect.bottom <= lowerComfortLine) return;
+
+  const desiredBottom = viewportHeight * 0.64;
+  const target = window.scrollY + rect.bottom - desiredBottom;
+  const maxScroll = Math.max(0, document.documentElement.scrollHeight - viewportHeight);
+
+  window.scrollTo({
+    top: Math.max(0, Math.min(target, maxScroll)),
+    behavior,
+  });
+}
+
 async function typeText(element, text, speed = TYPE_SPEED) {
   element.textContent = "";
   state.skipTyping = false;
@@ -312,11 +333,13 @@ async function typeText(element, text, speed = TYPE_SPEED) {
       break;
     }
     element.textContent += text[index];
-    if (index % 11 === 0 || index === text.length - 1) {
-      element.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    if (index % 8 === 0 || index === text.length - 1) {
+      keepActiveDialogueInView(element, "auto");
     }
     await wait(speed);
   }
+
+  keepActiveDialogueInView(element, "smooth");
   state.skipTyping = false;
 }
 
@@ -333,7 +356,7 @@ async function appendDialogue(line, { instant = false } = {}) {
   entry.addEventListener("click", () => {
     if (state.dialogueBusy) state.skipTyping = true;
   });
-  entry.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  keepActiveDialogueInView(entry, "smooth", true);
   if (instant) paragraph.textContent = line.text;
   else await typeText(paragraph, line.text);
 }
@@ -788,10 +811,7 @@ $("#accept-button").addEventListener("click", async () => {
       state.skipTyping = true;
     });
 
-    entry.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest"
-    });
+    keepActiveDialogueInView(entry, "smooth", true);
 
     await typeText(paragraph, line.text);
     await wait(550);
@@ -810,10 +830,7 @@ $("#accept-button").addEventListener("click", async () => {
 
   response.appendChild(closeCaseButton);
 
-  closeCaseButton.scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
+  keepActiveDialogueInView(closeCaseButton, "smooth", true);
 
   closeCaseButton.addEventListener("click", () => {
     showScreen("success");
