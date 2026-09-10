@@ -27,7 +27,7 @@ Reemplazá en la raíz de tu repositorio:
 - `assets/living.png`
 - `assets/ambient.mp3`
 
-El HTML ya tiene `?v=de5` en CSS y JS para ayudar a evitar que GitHub Pages muestre una versión vieja en caché.
+El HTML ya tiene `?v=de8` en CSS y JS para ayudar a evitar que GitHub Pages muestre una versión vieja en caché.
 
 ## Recorrido nuevo
 
@@ -51,3 +51,16 @@ El botón **“Revisar el expediente desde el inicio”** ahora funciona tambié
 - El diagnóstico del sujeto fue reemplazado por la nueva lectura de **Volición**, con énfasis en el cierre sobre seguridad y cuidado.
 - La ficha del personaje incorpora un bloque visualmente separado: **Documento adjunto 41-B — Notas de campo del Tte. Kitsuragi**.
 - La imagen de Kim se carga desde la URL indicada en el HTML.
+
+
+## Actualización DE8 — Libreta de Kim
+
+- Se tomó como base la última versión subida por la usuaria.
+- Se conserva el diagnóstico actualizado de **Volición**, todas las mecánicas DE5 y el reinicio seguro DE6.
+- Se corrigió además el `z-index` del panel **Tareas** a `105`, porque la última copia subida todavía tenía el valor anterior (`91`).
+- El bloque visible de Kim debajo de la ficha fue eliminado.
+- En la ficha aparece ahora **[INSPECCIONAR DOCUMENTO ADJUNTO 41-B]**.
+- El botón abre un **anotador de dos páginas**: papel envejecido, foto pegada con cinta, tipografía manuscrita, subrayados, tachones, comentarios al margen, mancha de café y firma de Kim.
+- Se puede cerrar con **×**, clic fuera del cuaderno o **Escape**.
+- En pantallas angostas las dos páginas se apilan verticalmente.
+- La imagen de Kim continúa cargándose desde la URL indicada en el HTML; no hace falta agregar un asset nuevo.

@@ -780,6 +780,45 @@ function resetMechanics() {
   Object.keys(state.taskStates).forEach(id => setTask(id, state.taskStates[id]));
 }
 
+/* =========================================================
+   ANEXO 41-B — LIBRETA DE CAMPO DE KIM
+   ========================================================= */
+function openKimNotebook() {
+  const modal = $("#kim-notebook-modal");
+  const trigger = $("#kim-notebook-open");
+  if (!modal || !trigger) return;
+
+  // Evita que un panel lateral quede flotando detrás del cuaderno.
+  if ($("#tasks-panel")?.classList.contains("is-open")) closeTasks();
+  if ($("#memories-panel")?.classList.contains("is-open")) closeMemories();
+
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+  trigger.setAttribute("aria-expanded", "true");
+  document.body.classList.add("kim-notebook-open");
+
+  window.setTimeout(() => {
+    $("#kim-notebook-close")?.focus({ preventScroll: true });
+  }, 80);
+}
+
+function closeKimNotebook() {
+  const modal = $("#kim-notebook-modal");
+  const trigger = $("#kim-notebook-open");
+  if (!modal) return;
+
+  modal.classList.remove("is-open");
+  modal.setAttribute("aria-hidden", "true");
+  trigger?.setAttribute("aria-expanded", "false");
+  document.body.classList.remove("kim-notebook-open");
+
+  window.setTimeout(() => trigger?.focus({ preventScroll: true }), 40);
+}
+
+$("#kim-notebook-open")?.addEventListener("click", openKimNotebook);
+$("#kim-notebook-close")?.addEventListener("click", closeKimNotebook);
+$("#kim-notebook-backdrop")?.addEventListener("click", closeKimNotebook);
+
 $("#restart-button").addEventListener("click", event => {
   // El enlace ya funciona como respaldo incluso si JavaScript falla.
   // Con JS activo, recargamos la página para restaurar absolutamente
@@ -793,6 +832,10 @@ $("#restart-button").addEventListener("click", event => {
    ========================================================= */
 document.addEventListener("keydown", event => {
   if (event.key !== "Escape") return;
+  if ($("#kim-notebook-modal")?.classList.contains("is-open")) {
+    closeKimNotebook();
+    return;
+  }
   if ($("#thought-cabinet-modal").classList.contains("is-open")) {
     closeThoughtCabinet();
     return;

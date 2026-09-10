@@ -1,4 +1,4 @@
-<!doctype html> 
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
@@ -9,17 +9,16 @@
     content="Expediente interactivo sobre una anomalía pendiente de resolución."
   />
   <title>Expediente: anomalía pendiente de resolución</title>
-  
 
   <!-- Fuentes. Podés reemplazarlas por archivos locales si querés evitar Google Fonts. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Encode+Sans+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Encode+Sans+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=IBM+Plex+Mono:wght@400;500;600&family=Kalam:wght@300;400;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="style.css?v=de5" />
+  <link rel="stylesheet" href="style.css?v=de8" />
 </head>
 
 <body data-phase="cold" data-step="start">
@@ -290,6 +289,98 @@
   </div>
 
   <!-- =========================================================
+       ANEXO 41-B — LIBRETA DE CAMPO DE KIM
+       ========================================================= -->
+  <div id="kim-notebook-modal" class="kim-notebook-modal" aria-hidden="true">
+    <button
+      id="kim-notebook-backdrop"
+      class="kim-notebook-modal__backdrop"
+      type="button"
+      aria-label="Cerrar libreta"
+    ></button>
+
+    <section
+      class="kim-notebook"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="kim-notebook-title"
+    >
+      <button id="kim-notebook-close" class="kim-notebook__close" type="button" aria-label="Cerrar libreta">×</button>
+      <span class="kim-notebook__spine" aria-hidden="true"></span>
+
+      <article class="kim-notebook__page kim-notebook__page--left">
+        <span class="kim-notebook__page-number">41-B / 01</span>
+        <span class="kim-notebook__paperclip" aria-hidden="true"></span>
+
+        <div class="kim-notebook__photo-wrap">
+          <span class="kim-notebook__tape kim-notebook__tape--a" aria-hidden="true"></span>
+          <span class="kim-notebook__tape kim-notebook__tape--b" aria-hidden="true"></span>
+          <img
+            src="https://images.igdb.com/igdb/image/upload/t_cover_big/co1x4n.png"
+            alt="Teniente Kim Kitsuragi"
+            class="kim-notebook__photo"
+          />
+          <small>TTE. KITSURAGI — R.C.M.</small>
+        </div>
+
+        <header class="kim-notebook__header">
+          <p>R.C.M. / LIBRETA DE CAMPO</p>
+          <h2 id="kim-notebook-title">Documento adjunto 41-B</h2>
+          <span>Notas de campo del Tte. Kitsuragi</span>
+        </header>
+
+        <p class="kim-notebook__lead">Anotado en el libretero:</p>
+
+        <ol class="kim-notebook__notes">
+          <li>
+            <strong>Evidencia de afinidad.</strong> Se ha detectado la presencia de un modelo a escala/figurina de este teniente en el área del sujeto. Afirma tenerle un aprecio particular. El dato carece de relevancia para la investigación policial, pero se registra en el archivo.
+            <em class="kim-note-margin kim-note-margin--blue">¿Relevante? No.<br>¿Anotado? Sí.</em>
+          </li>
+          <li>
+            <strong>Hábitos de esparcimiento.</strong> Alta inclinación por los sistemas de entretenimiento interactivo y los juegos digitales. Muestra además un marcado entusiasmo por el baile y la actividad festiva; suele convertirse, de forma involuntaria, en el <u>centro de gravedad social</u> del entorno.
+          </li>
+          <li>
+            <strong>Análisis conductual y vocal.</strong> Ha participado en sesiones de karaoke. Las métricas de afinación vocal son <span class="kim-scribble-strike">objetivamente deficientes</span>, pero el nivel de ejecución compensa cualquier desviación técnica. El sujeto simplemente busca pasarla bien.
+            <em class="kim-note-margin kim-note-margin--red">No insistir<br>con las métricas.</em>
+          </li>
+        </ol>
+      </article>
+
+      <article class="kim-notebook__page kim-notebook__page--right">
+        <span class="kim-notebook__page-number">41-B / 02</span>
+        <span class="kim-notebook__coffee-stain" aria-hidden="true"></span>
+
+        <div class="kim-notebook__typed-tag">CONT. / PERFIL DEL SUJETO</div>
+
+        <ol class="kim-notebook__notes" start="4">
+          <li>
+            <strong>Preferencia nutricional de confort.</strong> El sujeto muestra una debilidad documentada por la repostería especiada, específicamente los <u>rolls de canela</u>. Se sugiere utilizar esta información con fines de pacificación o diplomacia.
+            <span class="kim-hand-arrow" aria-hidden="true">↳</span>
+            <em class="kim-note-margin kim-note-margin--cinnamon">información<br>útil.</em>
+          </li>
+          <li>
+            <strong>Evaluación de perfil y autopercepción.</strong> El sujeto sostiene la teoría de que es una mala persona y mantiene una sospecha inicial hacia los demás. La evidencia <u>desmiente categóricamente</u> su propia hipótesis: experimenta una densidad emocional desmedida (siente demasiado) y posee una bondad genuina. Su lenguaje primario ante la confianza incluye el uso de abrazos prolongados.
+          </li>
+        </ol>
+
+        <section class="kim-notebook__conclusion">
+          <span>CONCLUSIÓN DEL TENIENTE</span>
+          <p>
+            El sujeto juzga su propio valor con una severidad injustificada. Las pruebas reunidas en este cuaderno demuestran que es una presencia luminosa, afectuosa y fundamental para el equilibrio del ambiente. Recomiendo proceder con el cierre del expediente y asegurar su bienestar.
+          </p>
+          <div class="kim-notebook__underline" aria-hidden="true"></div>
+          <div class="kim-notebook__signature">— K.</div>
+        </section>
+
+        <div class="kim-notebook__footer-note">
+          <span>NOTA FINAL</span>
+          <p>Tratar el contenido de esta página con la discreción correspondiente.</p>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <!-- =========================================================
        APP
        ========================================================= -->
   <main id="app" class="app">
@@ -307,7 +398,8 @@
           <h1>EXPEDIENTE:<br>ANOMALÍA PENDIENTE DE RESOLUCIÓN</h1>
 
           <p class="start-copy__question">
-            ¿Por qué, si todas las combinaciones de dudas ya se jugaron y los átomos no nos permiten estar en otro lugar, este caso sigue figurando sin resolver?
+            ¿Por qué, con todas las pruebas irrefutables de amor que existen
+            entre ambas, todavía no son novias?
           </p>
 
           <button id="review-button" class="primary-button" type="button">
@@ -384,76 +476,18 @@
         </div>
       </article>
 
-      <article class="kim-field-report" aria-labelledby="kim-report-title">
-        <div class="kim-field-report__media">
-          <div class="kim-field-report__portrait-wrap">
-            <img
-              src="https://static.wikia.nocookie.net/disco-elysium/images/7/76/Kitsuragi_Retrato.png/revision/latest?cb=20240314233034&path-prefix=es"
-              alt="Teniente Kim Kitsuragi"
-              class="kim-field-report__portrait"
-            />
-            <span class="kim-field-report__portrait-code">TTE. KITSURAGI / 41-B</span>
-          </div>
-
-          <div class="kim-field-report__stamp" aria-hidden="true">
-            <span>ANEXO</span>
-            <b>41-B</b>
-          </div>
-        </div>
-
-        <div class="kim-field-report__body">
-          <header class="kim-field-report__header">
-            <p>FICHA DE CAMPO / ARCHIVO ANEXADO</p>
-            <h2 id="kim-report-title">[DOCUMENTO ADJUNTO NO. 41-B — NOTAS DE CAMPO DEL TTE. KITSURAGI]</h2>
-          </header>
-
-          <p class="kim-field-report__notebook">Anotado en el libretero:</p>
-
-          <ol class="kim-field-report__notes">
-            <li>
-              <strong>Evidencia de afinidad:</strong>
-              Se ha detectado la presencia de un modelo a escala/figurina de este teniente en el área del sujeto.
-              Afirma tenerle un aprecio particular. El dato carece de relevancia para la investigación policial,
-              pero se registra en el archivo.
-            </li>
-            <li>
-              <strong>Hábitos de esparcimiento:</strong>
-              Alta inclinación por los sistemas de entretenimiento interactivo y los juegos digitales. Muestra además
-              un marcado entusiasmo por el baile y la actividad festiva; suele convertirse, de forma involuntaria,
-              en el centro de gravedad social del entorno.
-            </li>
-            <li>
-              <strong>Análisis conductual y vocal:</strong>
-              Ha participado en sesiones de karaoke. Las métricas de afinación vocal son objetivamente deficientes,
-              pero el nivel de ejecución compensa cualquier desviación técnica. El sujeto simplemente busca pasarla bien.
-            </li>
-            <li>
-              <strong>Preferencia nutricional de confort:</strong>
-              El sujeto muestra una debilidad documentada por la repostería especiada, específicamente los rolls de canela.
-              Se sugiere utilizar esta información con fines de pacificación o diplomacia.
-            </li>
-            <li>
-              <strong>Evaluación de perfil y autopercepción:</strong>
-              El sujeto sostiene la teoría de que es una mala persona y mantiene una sospecha inicial hacia los demás.
-              La evidencia desmiente categóricamente su propia hipótesis: experimenta una densidad emocional desmedida
-              (siente demasiado) y posee una bondad genuina. Su lenguaje primario ante la confianza incluye el uso de
-              abrazos prolongados.
-            </li>
-          </ol>
-
-          <section class="kim-field-report__conclusion">
-            <span>CONCLUSIÓN DEL TENIENTE</span>
-            <p>
-              El sujeto juzga su propio valor con una severidad injustificada. Las pruebas reunidas en este cuaderno
-              demuestran que es una presencia luminosa, afectuosa y fundamental para el equilibrio del ambiente.
-              Recomiendo proceder con el cierre del expediente y asegurar su bienestar.
-            </p>
-            <div class="kim-field-report__signature">— K. Kitsuragi</div>
-          </section>
-        </div>
-      </article>
-
       <div class="character-actions">
+        <button
+          id="kim-notebook-open"
+          class="kim-notebook-trigger"
+          type="button"
+          aria-controls="kim-notebook-modal"
+          aria-expanded="false"
+        >
+          <span>[INSPECCIONAR DOCUMENTO ADJUNTO 41-B]</span>
+          <small>Documento no catalogado / libreta de campo</small>
+        </button>
+
         <button id="character-continue" class="primary-button" type="button">
           Abrir el expediente
         </button>
@@ -729,6 +763,6 @@
 
   </main>
 
-  <script src="script.js?v=de7"></script>
+  <script src="script.js?v=de8"></script>
 </body>
 </html>
