@@ -800,8 +800,27 @@ $("#accept-button").addEventListener("click", async () => {
     block: "start"
   });
 
-  await wait(7500);
+state.dialogueBusy = false;
 
+/* Botón final para cerrar el caso */
+const closeCaseButton = document.createElement("button");
+
+closeCaseButton.className = "dialogue-choice final-case-button";
+closeCaseButton.type = "button";
+
+closeCaseButton.innerHTML = `
+  <span>1.</span>
+  <b>[Cerrar el expediente.]</b>
+`;
+
+response.appendChild(closeCaseButton);
+
+closeCaseButton.scrollIntoView({
+  behavior: "smooth",
+  block: "center"
+});
+
+closeCaseButton.addEventListener("click", () => {
   showScreen("success");
 
   setTimeout(() => {
