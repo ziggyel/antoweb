@@ -10,7 +10,7 @@
   />
   <title>Expediente: anomalía pendiente de resolución</title>
 
-  <!-- Fuentes. Podés reemplazarlas por archivos locales si querés evitar Google Fonts. -->
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -22,9 +22,8 @@
 </head>
 
 <body data-phase="cold" data-step="start">
-  <!-- =========================================================
-       FONDO GENERAL
-       ========================================================= -->
+  
+    
   <div class="world" aria-hidden="true">
     <div class="world__cover"></div>
     <div class="world__paint"></div>
@@ -34,9 +33,7 @@
     <div class="world__warmth"></div>
   </div>
 
-  <!-- =========================================================
-       HUD
-       ========================================================= -->
+  
   <header class="hud">
     <div class="hud__case">
       <span class="hud__case-label">Expediente activo</span>
@@ -83,20 +80,14 @@
         </span>
       </button>
 
-      <!--
-        AUDIO LOCAL:
-        Reemplazá "assets/ambient.mp3" por el nombre de tu canción.
-        Ejemplo: assets/cancion-anto.mp3
-      -->
+      
       <audio id="ambient-audio" preload="auto" loop>
         <source src="assets/ambient.mp3" type="audio/mpeg" />
       </audio>
     </div>
   </header>
 
-  <!-- =========================================================
-       PANEL LATERAL — PENSAMIENTOS INTERNALIZADOS
-       ========================================================= -->
+  
   <aside id="memories-panel" class="memories-panel" aria-hidden="true">
     <div class="memories-panel__header">
       <div>
@@ -173,9 +164,7 @@
     aria-label="Cerrar pensamientos"
   ></button>
 
-  <!-- =========================================================
-       PANEL LATERAL — TAREAS
-       ========================================================= -->
+  
   <aside id="tasks-panel" class="tasks-panel" aria-hidden="true">
     <div class="tasks-panel__header">
       <div>
@@ -220,9 +209,7 @@
 
   <button id="tasks-backdrop" class="panel-backdrop" type="button" aria-label="Cerrar tareas"></button>
 
-  <!-- =========================================================
-       MODAL DE ESFERAS
-       ========================================================= -->
+  
   <div id="orb-modal" class="orb-modal" aria-hidden="true">
     <button
       id="orb-modal-backdrop"
@@ -259,9 +246,7 @@
     </article>
   </div>
 
-  <!-- =========================================================
-       THOUGHT CABINET — NUEVO PENSAMIENTO
-       ========================================================= -->
+  
   <div id="thought-cabinet-modal" class="thought-cabinet-modal" aria-hidden="true">
     <button id="thought-cabinet-backdrop" class="thought-cabinet-modal__backdrop" type="button" aria-label="Cerrar pensamiento"></button>
 
@@ -288,9 +273,7 @@
     </article>
   </div>
 
-  <!-- =========================================================
-       ANEXO 41-B — LIBRETA DE CAMPO DE KIM
-       ========================================================= -->
+  
   <div id="kim-notebook-modal" class="kim-notebook-modal" aria-hidden="true">
     <button
       id="kim-notebook-backdrop"
@@ -380,14 +363,10 @@
     </section>
   </div>
 
-  <!-- =========================================================
-       APP
-       ========================================================= -->
+  
   <main id="app" class="app">
 
-    <!-- =======================================================
-         PASO 0 — PORTADA
-         ======================================================= -->
+    
     <section id="start-screen" class="screen start-screen is-active" data-screen="start">
       <div class="start-shell">
         <span class="start-shell__number" aria-hidden="true">41</span>
@@ -419,9 +398,7 @@
       </div>
     </section>
 
-    <!-- =======================================================
-         PASO A — PERSONAJE
-         ======================================================= -->
+    
     <section
       id="character-screen"
       class="screen character-screen"
@@ -438,10 +415,7 @@
 
       <article class="character-sheet">
         <div class="character-sheet__portrait">
-          <!--
-            RETRATO:
-            Reemplazá "assets/anto-portrait.png" por el archivo del retrato al óleo.
-          -->
+          
           <img
             src="assets/anto-portrait.png"
             alt="Retrato de Antowoo"
@@ -493,9 +467,7 @@
       </div>
     </section>
 
-    <!-- =======================================================
-         PASO 1 A 4 — DIÁLOGO
-         ======================================================= -->
+   
     <section
       id="dialogue-screen"
       class="screen dialogue-screen"
@@ -580,9 +552,7 @@
             </button>
           </div>
 
-          <!-- =================================================
-               6 ESFERAS DE PENSAMIENTO
-               ================================================= -->
+          
           <div class="thought-orbs are-locked" aria-label="Pruebas del expediente">
             <button
               class="thought-orb thought-orb--red orb-pos-1"
@@ -648,9 +618,7 @@
       </div>
     </section>
 
-    <!-- =======================================================
-         PASO 5 — SKILL CHECK
-         ======================================================= -->
+    
     <section
       id="check-screen"
       class="screen check-screen"
@@ -715,9 +683,7 @@
       </div>
     </section>
 
-    <!-- =======================================================
-         PASO 6 — RESOLUCIÓN
-         ======================================================= -->
+    
     <section
       id="success-screen"
       class="screen success-screen"
