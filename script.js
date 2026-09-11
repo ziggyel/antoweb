@@ -1,14 +1,9 @@
-/* =========================================================
-   HELPERS
-   ========================================================= */
+
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const TYPE_SPEED = 31;
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-/* =========================================================
-   ESTADO
-   ========================================================= */
 const state = {
   screen: "start",
   dialogueStep: 0,
@@ -33,9 +28,7 @@ const state = {
   },
 };
 
-/* =========================================================
-   DATOS — RECUERDOS
-   ========================================================= */
+
 const memories = {
   "first-laugh": {
     title: "La primera risa fuera de control",
@@ -55,9 +48,7 @@ const memories = {
   },
 };
 
-/* =========================================================
-   DATOS — PRUEBAS / THOUGHT ORBS
-   ========================================================= */
+
 const orbThoughts = {
   "first-kiss": {
     skill: "ELECTROQUÍMICA",
@@ -97,9 +88,7 @@ const orbThoughts = {
   },
 };
 
-/* =========================================================
-   DATOS — OBJETOS INVESTIGABLES DEL LIVING
-   ========================================================= */
+
 const sceneClues = {
   sofa: {
     skill: "PERCEPCIÓN [Medio: Éxito]",
@@ -145,9 +134,7 @@ const sceneClues = {
   },
 };
 
-/* =========================================================
-   DATOS — DIÁLOGO
-   ========================================================= */
+
 const dialogueStages = [
   {
     label: "Paso 1 de 4",
@@ -235,9 +222,7 @@ const dialogueStages = [
   },
 ];
 
-/* =========================================================
-   TAREAS
-   ========================================================= */
+
 function setTask(id, status) {
   state.taskStates[id] = status;
   const task = $(`[data-task="${id}"]`);
@@ -269,9 +254,7 @@ $("#tasks-toggle").addEventListener("click", openTasks);
 $("#tasks-close").addEventListener("click", closeTasks);
 $("#tasks-backdrop").addEventListener("click", closeTasks);
 
-/* =========================================================
-   NAVEGACIÓN
-   ========================================================= */
+
 function showScreen(name) {
   state.screen = name;
   $$('[data-screen]').forEach(screen => screen.classList.toggle("is-active", screen.dataset.screen === name));
@@ -300,9 +283,7 @@ $("#character-continue").addEventListener("click", async () => {
   await renderDialogueStage();
 });
 
-/* =========================================================
-   TYPEWRITER
-   ========================================================= */
+
 function keepActiveDialogueInView(element, behavior = "auto", force = false) {
   if (!element) return;
 
@@ -310,8 +291,7 @@ function keepActiveDialogueInView(element, behavior = "auto", force = false) {
   const viewportHeight = window.innerHeight;
   const lowerComfortLine = viewportHeight * 0.72;
 
-  // El texto nuevo nace en la parte inferior del bloque. Mientras se escribe,
-  // acompañamos ese borde para que permanezca en una zona cómoda de lectura.
+  
   if (!force && rect.bottom <= lowerComfortLine) return;
 
   const desiredBottom = viewportHeight * 0.64;
@@ -361,9 +341,7 @@ async function appendDialogue(line, { instant = false } = {}) {
   else await typeText(paragraph, line.text);
 }
 
-/* =========================================================
-   DIÁLOGO + GATING DE MECÁNICAS
-   ========================================================= */
+
 async function renderDialogueStage() {
   if (state.dialogueBusy) return;
   state.dialogueBusy = true;
@@ -380,19 +358,19 @@ async function renderDialogueStage() {
 
   state.dialogueBusy = false;
 
-  // Primer paso: el progreso queda detrás de un check blanco.
+  
   if (state.dialogueStep === 0 && !state.whitePassed) {
     $("#white-check").classList.remove("is-hidden");
     return;
   }
 
-  // Tras superar el check blanco, primero hay que internalizar el pensamiento.
+  
   if (state.dialogueStep === 0 && state.whitePassed && !state.thoughtInternalized) {
     $("#new-thought-notice").classList.remove("is-hidden");
     return;
   }
 
-  // Después, revisar tres pruebas.
+  
   if (state.dialogueStep === 0 && state.evidence.size < 3) {
     unlockEvidencePhase();
     return;
@@ -423,9 +401,7 @@ $("#dialogue-next").addEventListener("click", async () => {
   }
 });
 
-/* =========================================================
-   CHECK BLANCO — FALLA / REINTENTO
-   ========================================================= */
+
 function setWhiteCheckState(mode) {
   const button = $("#white-check-button");
   const heading = $("#white-check h3");
@@ -504,9 +480,7 @@ async function resolveWhiteCheck() {
 
 $("#white-check-button").addEventListener("click", resolveWhiteCheck);
 
-/* =========================================================
-   INVESTIGACIÓN DEL LIVING
-   ========================================================= */
+
 function openInformationCard(data) {
   const modal = $("#orb-modal");
   $(".orb-modal__card", modal).style.setProperty("--orb-color", data.color || "#d3a042");
@@ -546,9 +520,7 @@ $$('[data-scene-clue]').forEach(button => {
   button.addEventListener("click", () => inspectSceneClue(button.dataset.sceneClue, button));
 });
 
-/* =========================================================
-   THOUGHT CABINET
-   ========================================================= */
+
 function openThoughtCabinet() {
   $("#thought-cabinet-modal").classList.add("is-open");
   $("#thought-cabinet-modal").setAttribute("aria-hidden", "false");
@@ -603,9 +575,7 @@ function addHomeThoughtToMemories() {
   if (count) count.textContent = "5";
 }
 
-/* =========================================================
-   PRUEBAS / ESFERAS
-   ========================================================= */
+
 function unlockEvidencePhase() {
   if (!state.thoughtInternalized) return;
   $(".thought-orbs").classList.remove("are-locked");
@@ -642,9 +612,7 @@ $$('[data-orb]').forEach(button => button.addEventListener("click", () => openOr
 $("#orb-modal-close").addEventListener("click", closeOrb);
 $("#orb-modal-backdrop").addEventListener("click", closeOrb);
 
-/* =========================================================
-   PANEL DE RECUERDOS
-   ========================================================= */
+
 function openMemories() {
   $("#memories-panel").classList.add("is-open");
   $("#memories-backdrop").classList.add("is-open");
@@ -676,9 +644,7 @@ $("#memories-close").addEventListener("click", closeMemories);
 $("#memories-backdrop").addEventListener("click", closeMemories);
 $$('[data-memory]').forEach(bindMemoryButton);
 
-/* =========================================================
-   CASSETTE
-   ========================================================= */
+
 const ambientAudio = $("#ambient-audio");
 async function toggleCassette() {
   const button = $("#cassette-toggle");
@@ -704,15 +670,13 @@ async function toggleCassette() {
 }
 $("#cassette-toggle").addEventListener("click", toggleCassette);
 
-/* =========================================================
-   TIRADA ROJA FINAL
-   ========================================================= */
+
 function prepareFinalCheck() {
   const earned = new Set(state.evidence);
   if (state.thoughtInternalized) earned.add("home");
   $$('[data-modifier-key]').forEach(row => row.classList.toggle("is-earned", earned.has(row.dataset.modifierKey)));
 
-  // El porcentaje visual responde a la evidencia encontrada, con un techo dramático de 97%.
+  
   const chance = Math.min(97, 65 + state.evidence.size * 7 + (state.thoughtInternalized ? 11 : 0));
   $("#red-check-percent").textContent = `${chance}%`;
 }
@@ -745,9 +709,7 @@ $("#roll-button").addEventListener("click", () => {
   }, 85);
 });
 
-/* =========================================================
-   RESOLUCIÓN
-   ========================================================= */
+
 $("#accept-button").addEventListener("click", async () => {
   const acceptButton = $("#accept-button");
   const proposalWrap = $("#proposal-wrap");
@@ -841,9 +803,7 @@ $("#accept-button").addEventListener("click", async () => {
   });
 });
 
-/* =========================================================
-   REINICIO
-   ========================================================= */
+
 function resetMechanics() {
   state.dialogueStep = 0;
   state.dialogueBusy = false;
@@ -887,22 +847,20 @@ function resetMechanics() {
   $("#proposal-wrap").classList.add("is-hidden");
   $("#achievement").classList.remove("is-visible");
 
-   /* Reinicia la respuesta final */
+   
 $(".final-response-sequence")?.remove();
 $("#accept-button").disabled = false;
    
   Object.keys(state.taskStates).forEach(id => setTask(id, state.taskStates[id]));
 }
 
-/* =========================================================
-   ANEXO 41-B — LIBRETA DE CAMPO DE KIM
-   ========================================================= */
+
 function openKimNotebook() {
   const modal = $("#kim-notebook-modal");
   const trigger = $("#kim-notebook-open");
   if (!modal || !trigger) return;
 
-  // Evita que un panel lateral quede flotando detrás del cuaderno.
+  
   if ($("#tasks-panel")?.classList.contains("is-open")) closeTasks();
   if ($("#memories-panel")?.classList.contains("is-open")) closeMemories();
 
@@ -934,16 +892,12 @@ $("#kim-notebook-close")?.addEventListener("click", closeKimNotebook);
 $("#kim-notebook-backdrop")?.addEventListener("click", closeKimNotebook);
 
 $("#restart-button").addEventListener("click", event => {
-  // El enlace ya funciona como respaldo incluso si JavaScript falla.
-  // Con JS activo, recargamos la página para restaurar absolutamente
-  // todo el estado del expediente desde cero.
+  
   event.preventDefault();
   window.location.reload();
 });
 
-/* =========================================================
-   ESCAPE
-   ========================================================= */
+
 document.addEventListener("keydown", event => {
   if (event.key !== "Escape") return;
   if ($("#kim-notebook-modal")?.classList.contains("is-open")) {
@@ -965,8 +919,6 @@ document.addEventListener("keydown", event => {
   if ($("#memories-panel").classList.contains("is-open")) closeMemories();
 });
 
-/* =========================================================
-   INIT
-   ========================================================= */
+
 Object.keys(state.taskStates).forEach(id => setTask(id, state.taskStates[id]));
 setWhiteCheckState("initial");
